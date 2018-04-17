@@ -290,6 +290,43 @@ data-notebook-path="{{notebook_path | urlencode}}"
                         </li>
                     </ul>
                 </li>
+
+                {# CHANGE: 新增菜单×××××××××××××××××××××× #}
+                <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Feature&Model{% endtrans %}</a>
+                    <ul id="FM-menu" class="dropdown-menu">
+                        <li id="Feature-menu" class="dropdown-submenu"
+                            title="{% trans %}Select feature engineering method{% endtrans %}">
+                            <a href="#">{% trans %}Feature{% endtrans %}</a>
+                            <ul class="dropdown-menu">
+                              <li id="boxing-menu" data-toggle="modal" data-target="#boxing-modal"
+                                  title="{% trans %}Key the boxing parameter{% endtrans %}">
+                                  <a href="#">boxing</a></li>
+                              <li id="split-menu"
+                                  title="{% trans %}Split dataset by your settings{% endtrans %}">
+                                  <a href="#">{% trans %}split{% endtrans %}</a></li>
+                            </ul>
+                        </li>
+
+                        <li id="" class="dropdown-submenu"
+                            title="{% trans %}Custom dataset model{% endtrans %}">
+                            <a href="#">{% trans %}Model{% endtrans %}</a>
+                            <ul class="dropdown-menu">
+                              <li id=""
+                                  title="{% trans %}Use REF{% endtrans %}">
+                                  <a href="#">RFE</a></li>
+                              <li id=""
+                                  title="{% trans %}Fit dataset{% endtrans %}">
+                                  <a href="#">{% trans %}fit{% endtrans %}</a></li>
+                              <li id=""
+                                  title="{% trans %}Save your model{% endtrans %}">
+                                  <a href="#">{% trans %}save{% endtrans %}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                {# CHANGE: 新增菜单^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #}
+
+
                 <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}Help{% endtrans %}</a>
                     <ul  id="help_menu" class="dropdown-menu">
                         {% block help %}
@@ -362,6 +399,70 @@ data-notebook-path="{{notebook_path | urlencode}}"
     </div>
     <div id='pager-button-area'></div>
 </div>
+
+
+{# CHANGE:---------- #}
+<div class="modal fade in" tabindex="-5" role="dialog" id="boxing-modal">
+  <div class="modal-dialog" role="document" id="boxing-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Boxing Parameter</h4>
+      </div>
+      <div class="modal-body">
+          <form class="form-horizontal">
+              <div class="form-group">
+                  <label for="boxing-dataframe" class="col-sm-2 control-label" title="数据集名称，必填">dataframe</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-8">
+                      <input type="email" class="form-control" id="boxing-dataframe" placeholder="数据集名称，必填">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="boxing-variable" class="col-sm-2 control-label" title="分箱变量名，必填">variable</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-8">
+                      <input type="password" class="form-control" id="boxing-variable" placeholder="分箱变量名，必填">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="boxing-label" class="col-sm-2 control-label" title="标签变量名，必填">label</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-8">
+                      <input type="password" class="form-control" id="boxing-label" placeholder="标签变量名，必填">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="boxing-no_default" class="col-sm-2 control-label" title="非违约的值，必填">no_default</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-8">
+                      <input type="password" class="form-control" id="boxing-no_default" placeholder="非违约的值，必填">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="boxing-default" class="col-sm-2 control-label" title="违约的值，必填">default</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-8">
+                      <input type="password" class="form-control" id="boxing-default" placeholder="违约的值，必填">
+                  </div>
+              </div>
+              <div class="form-group">
+                  <label for="boxing-bins" class="col-sm-2 control-label" title="分箱段数或者具体的分箱值，必填">bins</label>
+                  <div class="col-sm-1"></div>
+                  <div class="col-sm-8">
+                      <input type="password" class="form-control" id="boxing-bins" placeholder="分箱段数或者具体的分箱值，必填">
+                  </div>
+              </div>
+          </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" id="boxing-button">import boxing</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 {% endblock %}
 

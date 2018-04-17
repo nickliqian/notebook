@@ -635,7 +635,8 @@ class NotebookApp(JupyterApp):
         help=_("Whether to allow the user to run the notebook as root.")
     )
 
-    default_url = Unicode('/tree', config=True,
+    # CHANGE: Set the index page. Just open a default ipynb file. 设置初始打开的页面
+    default_url = Unicode('/notebooks/default.ipynb', config=True,
         help=_("The default URL to redirect to from `/`")
     )
     

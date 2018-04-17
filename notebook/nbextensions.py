@@ -34,6 +34,7 @@ from traitlets.utils.importstring import import_item
 
 DEPRECATED_ARGUMENT = object()
 
+# CHANGE: This location need change. 这里需要关注是否有机会修改
 NBCONFIG_SECTIONS = ['common', 'notebook', 'tree', 'edit', 'terminal']
 
 

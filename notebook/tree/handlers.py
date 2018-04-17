@@ -72,7 +72,8 @@ class TreeHandler(IPythonHandler):
 #-----------------------------------------------------------------------------
 
 
+# CHANGE: Cancel the 'tree' route. 取消查看文件的路由
 default_handlers = [
-    (r"/tree%s" % path_regex, TreeHandler),
-    (r"/tree", TreeHandler),
+    # (r"/tree%s" % path_regex, TreeHandler),
+    # (r"/tree", TreeHandler),
     ]

@@ -48,7 +48,23 @@ class APIStatusHandler(APIHandler):
         }
         self.finish(json.dumps(model, sort_keys=True))
 
+
+class APIImportParamsToFile(APIHandler):
+
+    @web.authenticated
+    @gen.coroutine
+    def get(self):
+
+        data = dict(
+            a="a",
+            b="b",
+        )
+        self.write(data)
+
+
+# CHANGE: Add new api...
 default_handlers = [
     (r"/api/spec.yaml", APISpecHandler),
     (r"/api/status", APIStatusHandler),
+    (r"/api/importDefault", APIImportParamsToFile),
 ]

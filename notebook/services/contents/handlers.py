@@ -129,6 +129,8 @@ class ContentsHandler(APIHandler):
     @gen.coroutine
     def _copy(self, copy_from, copy_to=None):
         """Copy a file, optionally specifying a target directory."""
+        # CHANGE: Block copy a file. 阻止复制文件
+        return None
         self.log.info(u"Copying {copy_from} to {copy_to}".format(
             copy_from=copy_from,
             copy_to=copy_to or '',
@@ -150,6 +152,8 @@ class ContentsHandler(APIHandler):
     @gen.coroutine
     def _new_untitled(self, path, type='', ext=''):
         """Create a new, empty untitled entity"""
+        # CHANGE: Block create new file. 阻止创建新文件
+        return None
         self.log.info(u"Creating new %s in %s", type or 'file', path)
         model = yield gen.maybe_future(self.contents_manager.new_untitled(path=path, type=type, ext=ext))
         self.set_status(201)
