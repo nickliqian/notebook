@@ -301,7 +301,7 @@ data-notebook-path="{{notebook_path | urlencode}}"
                               <li id="boxing-menu" data-toggle="modal" data-target="#boxing-modal"
                                   title="{% trans %}Key the boxing parameter{% endtrans %}">
                                   <a href="#">boxing</a></li>
-                              <li id="split-menu"
+                              <li id="split-menu" data-toggle="modal" data-target="#split-modal"
                                   title="{% trans %}Split dataset by your settings{% endtrans %}">
                                   <a href="#">{% trans %}split{% endtrans %}</a></li>
                             </ul>
@@ -403,7 +403,7 @@ data-notebook-path="{{notebook_path | urlencode}}"
 
 {# CHANGE:---------- #}
 <div class="modal fade in" tabindex="-5" role="dialog" id="boxing-modal">
-  <div class="modal-dialog" role="document" id="boxing-modal">
+  <div class="modal-dialog" id="boxing-modal">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -415,35 +415,35 @@ data-notebook-path="{{notebook_path | urlencode}}"
                   <label for="boxing-dataframe" class="col-sm-2 control-label" title="数据集名称，必填">dataframe</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-8">
-                      <input type="email" class="form-control" id="boxing-dataframe" placeholder="数据集名称，必填">
+                      <input type="text" class="form-control input-sm" id="boxing-dataframe" placeholder="数据集名称，必填">
                   </div>
               </div>
               <div class="form-group">
                   <label for="boxing-variable" class="col-sm-2 control-label" title="分箱变量名，必填">variable</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-8">
-                      <input type="password" class="form-control" id="boxing-variable" placeholder="分箱变量名，必填">
+                      <input type="text" class="form-control" id="boxing-variable" placeholder="分箱变量名，必填">
                   </div>
               </div>
               <div class="form-group">
                   <label for="boxing-label" class="col-sm-2 control-label" title="标签变量名，必填">label</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-8">
-                      <input type="password" class="form-control" id="boxing-label" placeholder="标签变量名，必填">
+                      <input type="text" class="form-control" id="boxing-label" placeholder="标签变量名，必填">
                   </div>
               </div>
               <div class="form-group">
                   <label for="boxing-no_default" class="col-sm-2 control-label" title="非违约的值，必填">no_default</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-8">
-                      <input type="password" class="form-control" id="boxing-no_default" placeholder="非违约的值，必填">
+                      <input type="text" class="form-control" id="boxing-no_default" placeholder="非违约的值，必填">
                   </div>
               </div>
               <div class="form-group">
                   <label for="boxing-default" class="col-sm-2 control-label" title="违约的值，必填">default</label>
                   <div class="col-sm-1"></div>
                   <div class="col-sm-8">
-                      <input type="password" class="form-control" id="boxing-default" placeholder="违约的值，必填">
+                      <input type="text" class="form-control" id="boxing-default" placeholder="违约的值，必填">
                   </div>
               </div>
               <div class="form-group">
@@ -453,6 +453,24 @@ data-notebook-path="{{notebook_path | urlencode}}"
                       <input type="password" class="form-control" id="boxing-bins" placeholder="分箱段数或者具体的分箱值，必填">
                   </div>
               </div>
+
+
+              <div class="form-group">
+                  <div class="input-group">
+                      <div class="input-group-btn">
+                          <button type="button" class="btn btn-default btn-sm" data-toggle="button" tabindex="0"
+                                  title="Match case" style="font-weight: bold;">Aa
+                          </button>
+                          <button type="button" id="isreg" class="btn btn-default btn-sm" data-toggle="button"
+                                  title="Use regex (JavaScript regex syntax)" style="font-weight: bold;">.*
+                          </button>
+                          <button type="button" class="btn btn-default btn-sm" data-toggle="button"
+                                  title="Replace in selected cells"><i class="fa fa-arrows-v"></i></button>
+                      </div>
+                      <input class="form-control input-sm" placeholder="Find"></div>
+              </div>
+
+
           </form>
 
       </div>
@@ -464,6 +482,40 @@ data-notebook-path="{{notebook_path | urlencode}}"
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+
+{#CHANGE:测试#}
+    <div class="modal fade in" role="dialog" id="boxing-split">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="modal-title">Find and Replace</h4></div>
+                <div class="modal-body">
+                    <form id="find-and-replace">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="button"
+                                            tabindex="0" title="Match case" style="font-weight: bold;">Aa
+                                    </button>
+                                    <button type="button" id="isreg" class="btn btn-default btn-sm" data-toggle="button"
+                                            title="Use regex (JavaScript regex syntax)" style="font-weight: bold;">.*
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm" data-toggle="button"
+                                            title="Replace in selected cells"><i class="fa fa-arrows-v"></i></button>
+                                </div>
+                                <input class="form-control input-sm" placeholder="Find"></div>
+                        </div>
+                        <div class="form-group"><input class="form-control input-sm" placeholder="Replace"></div>
+                        <div id="replace-preview"><p>0 matches</p></div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-default btn-sm btn-primary" data-dismiss="modal">Replace All</button>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
 
 {% block script %}
@@ -475,5 +527,34 @@ data-notebook-path="{{notebook_path | urlencode}}"
 <script src="{{ static_url("components/text-encoding/lib/encoding.js") }}" charset="utf-8"></script>
 
 <script src="{{ static_url("notebook/js/main.min.js") }}" type="text/javascript" charset="utf-8"></script>
+
+<script>
+
+
+{#    $("#boxing-menu").click(function(){#}
+{#        $("body").attr("class", "notebook_app edit_mode");#}
+{#        console.log("TEST...");#}
+{#    });#}
+
+    var boxingValue;
+    $("#boxing-button").click(function(){
+
+        boxingValue = {
+            "dataframe": $("#boxing-dataframe").val(),
+            "variable": $("#boxing-variable").val(),
+            "label": $("#boxing-label").val(),
+            "no_default": $("#boxing-no_default").val(),
+            "default": $("#boxing-default").val(),
+            "bins": $("#boxing-bins").val()
+        };
+        console.log(boxingValue);
+      $("#boxing-button").attr("data-dismiss","modal");
+      $.get("/api/importDefault", boxingValue, function(data) {
+          console.log(data);
+      });
+
+
+    });
+</script>
 
 {% endblock %}

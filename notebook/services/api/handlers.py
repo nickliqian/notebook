@@ -55,10 +55,25 @@ class APIImportParamsToFile(APIHandler):
     @gen.coroutine
     def get(self):
 
+        dataframe = self.get_argument("dataframe")
+        variable = self.get_argument("variable")
+        label = self.get_argument("label")
+        no_default = self.get_argument("no_default")
+        default = self.get_argument("default")
+        bins = self.get_argument("bins")
+        print("-->dataframe".format(dataframe))
+        print("-->variable".format(variable))
         data = dict(
             a="a",
             b="b",
+            dataframe=dataframe,
+            variable=variable,
+            label=label,
+            no_default=no_default,
+            default=default,
+            bins=bins,
         )
+        print(data)
         self.write(data)
 
 
