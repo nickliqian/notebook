@@ -43,6 +43,8 @@ requirejs([
     'notebook/js/kernelselector',
     'codemirror/lib/codemirror',
     'notebook/js/about',
+    'notebook/js/more_split',
+    'notebook/js/more_boxing',
     'notebook/js/searchandreplace',
     'notebook/js/clipboard',
     'bidi/bidi'
@@ -69,6 +71,8 @@ requirejs([
     kernelselector,
     CodeMirror,
     about,
+    more_split,
+    more_boxing,
     searchandreplace,
     clipboard,
     bidi
@@ -161,6 +165,8 @@ requirejs([
     var kernel_selector = new kernelselector.KernelSelector(
         '#kernel_logo_widget', notebook);
     searchandreplace.load(keyboard_manager);
+    more_split.load(keyboard_manager);
+    more_boxing.load(keyboard_manager);
 
     $('body').append('<div id="fonttest"><pre><span id="test1">x</span>'+
                      '<span id="test2" style="font-weight: bold;">x</span>'+
