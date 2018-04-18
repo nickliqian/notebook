@@ -61,8 +61,34 @@ class APIImportParamsToFile(APIHandler):
         no_default = self.get_argument("no_default")
         default = self.get_argument("default")
         bins = self.get_argument("bins")
-        print("-->dataframe".format(dataframe))
-        print("-->variable".format(variable))
+
+        with open("./default.ipynb", "r") as f:
+            origin = f.read()
+        cell = json.loads(origin)
+
+        obj = {
+            "cell_type": "code",
+            "execution_count": "null",
+            "metadata": {},
+            "outputs": [],
+            "source": [
+                "params = dict(\n"
+                "dataframe=\"{}\"\n".format(dataframe),
+                "variable=\"{}\"\n".format(variable),
+                "label=\"{}\"\n".format(label),
+                "no_default={}\n".format(no_default),
+                "default={}\n".format(default),
+                "bins={}\n".format(bins),
+                ")"
+            ]
+        }
+        cell["cells"].insert(0, obj)
+
+        result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
+
+        with open("./default.ipynb", "w") as f:
+            f.write(result)
+
         data = dict(
             a="a",
             b="b",
@@ -73,7 +99,6 @@ class APIImportParamsToFile(APIHandler):
             default=default,
             bins=bins,
         )
-        print(data)
         self.write(data)
 
 

@@ -149,7 +149,28 @@ define([
                   title: i18n.msg._('Split...'),
                   body: form,
                   keyboard_manager: keyboard_manager,
-                  buttons: {'Import Params': {}}
+                  buttons: {
+                      'Import Params': {
+                          class: "btn-primary",
+                          click: function () {
+                              boxingValue = {
+                                  "dataframe": $("#boxing-dataframe").val(),
+                                  "variable": $("#boxing-variable").val(),
+                                  "label": $("#boxing-label").val(),
+                                  "no_default": $("#boxing-no_default").val(),
+                                  "default": $("#boxing-default").val(),
+                                  "bins": $("#boxing-bins").val()
+                              };
+                              console.log("request");
+                              console.log(boxingValue);
+                              $.get("/api/importDefault", boxingValue, function (data) {
+                                  console.log("response");
+                                  console.log(data);
+                                  window.location.reload();
+                              });
+                          }
+                      }
+                  }
               });
 
           });
