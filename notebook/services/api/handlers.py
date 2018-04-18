@@ -62,7 +62,7 @@ class APIImportParamsToFile(APIHandler):
         default = self.get_argument("default")
         bins = self.get_argument("bins")
 
-        with open("./default.ipynb", "r") as f:
+        with open("./default.ipynb", "r", encoding="utf-8") as f:
             origin = f.read()
         cell = json.loads(origin)
 
@@ -86,7 +86,7 @@ class APIImportParamsToFile(APIHandler):
 
         result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
 
-        with open("./default.ipynb", "w") as f:
+        with open("./default.ipynb", "w", encoding="utf-8") as f:
             f.write(result)
 
         data = dict(
