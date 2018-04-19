@@ -74,7 +74,6 @@ define([
                           )
                   );
 
-
               var form = $('<form/>').addClass('form-horizontal')
                   .attr('id', 'feature-split-menu')
                   .append(form_dataframe)
@@ -90,33 +89,21 @@ define([
                       'Run': {
                           class: "btn-primary",
                           click: function () {
-                              var boxingValue = {
+                              var Value = {
                                   "dataframe": $("#split-dataframe").val(),
-                                  "variable": $("#split-ratio").val(),
-                                  "label": $("#split-seed").val(),
+                                  "ratio": $("#split-ratio").val(),
+                                  "seed": $("#split-seed").val(),
+                                  "target": "split",
                               };
 
-                              // notebook.insert_cell_below("code", null);
-
-                              // notebook.select_next(true);
-                              // notebook.focus_cell();
-                              // var cell = notebook.get_selected_cell();
-                              // notebook.edit_mode();
-                              // notebook.handle_edit_mode(cell);
-
-                              // var select_div = $("div[class='cell'][class='code_cell'][class='unrendered'][class='selected']");
-                              // var e = $.Event("keypress");
-                              // e.keyCode = 13;
-                              // select_div.trigger(e);
-
-                              $.get("/api/importDefault", boxingValue, function (data) {
+                              $.get("/api/importDefault", Value, function (data) {
 
                                   // notebook.restart_run_all(true);
                                   // window.location.reload();
 
                               });
 
-                              window.location.reload();
+                              // window.location.reload();
                           }
                       }
                   }

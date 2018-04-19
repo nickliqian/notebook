@@ -55,52 +55,187 @@ class APIImportParamsToFile(APIHandler):
     @gen.coroutine
     def get(self):
 
-        dataframe = self.get_argument("dataframe")
-        variable = self.get_argument("variable")
-        label = self.get_argument("label")
-        no_default = self.get_argument("no_default")
-        default = self.get_argument("default")
-        bins = self.get_argument("bins")
+        target = self.get_argument("target")
 
-        with open("./default.ipynb", "r", encoding="utf-8") as f:
-            origin = f.read()
-        cell = json.loads(origin)
+        # CHANGE: boxing data
+        if target == "boxing":
+            dataframe = self.get_argument("dataframe")
+            variable = self.get_argument("variable")
+            label = self.get_argument("label")
+            no_default = self.get_argument("no_default")
+            default = self.get_argument("default")
+            bins = self.get_argument("bins")
 
-        obj = {
-            "cell_type": "code",
-            "execution_count": "null",
-            "metadata": {},
-            "outputs": [],
-            "source": [
-                "params = dict(\n"
-                "dataframe=\"{}\",\n".format(dataframe),
-                "variable=\"{}\",\n".format(variable),
-                "label=\"{}\",\n".format(label),
-                "no_default={},\n".format(no_default),
-                "default={},\n".format(default),
-                "bins={}\n".format(bins),
-                ")\n"
-                "params"
-            ]
-        }
-        cell["cells"].insert(0, obj)
+            with open("./default.ipynb", "r", encoding="utf-8") as f:
+                origin = f.read()
+            cell = json.loads(origin)
 
-        result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
+            obj = {
+                "cell_type": "code",
+                "execution_count": "null",
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "# Feature boxing"
+                    "params = dict(\n"
+                    "    dataframe=\"{}\",\n".format(dataframe),
+                    "    variable=\"{}\",\n".format(variable),
+                    "    label=\"{}\",\n".format(label),
+                    "    no_default={},\n".format(no_default),
+                    "    default={},\n".format(default),
+                    "    bins={}\n".format(bins),
+                    ")\n"
+                    "params"
+                ]
+            }
+            cell["cells"].insert(0, obj)
 
-        with open("./default.ipynb", "w", encoding="utf-8") as f:
-            f.write(result)
+            result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
 
-        data = dict(
-            a="a",
-            b="b",
-            dataframe=dataframe,
-            variable=variable,
-            label=label,
-            no_default=no_default,
-            default=default,
-            bins=bins,
-        )
-        self.write(data)
+            with open("./default.ipynb", "w", encoding="utf-8") as f:
+                f.write(result)
+
+        # CHANGE: split data
+        if target == "split":
+            dataframe = self.get_argument("dataframe")
+            ratio = self.get_argument("ratio")
+            seed = self.get_argument("seed")
+
+            with open("./default.ipynb", "r", encoding="utf-8") as f:
+                origin = f.read()
+            cell = json.loads(origin)
+
+            obj = {
+                "cell_type": "code",
+                "execution_count": "null",
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "# Feature split"
+                    "params = dict(\n"
+                    "    dataframe=\"{}\",\n".format(dataframe),
+                    "    ratio=\"{}\",\n".format(ratio),
+                    "    seed=\"{}\",\n".format(seed),
+                    ")\n"
+                    "params"
+                ]
+            }
+            cell["cells"].insert(0, obj)
+
+            result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
+
+            with open("./default.ipynb", "w", encoding="utf-8") as f:
+                f.write(result)
+
+        # CHANGE: RFE data
+        if target == "RFE":
+            dataframe = self.get_argument("dataframe")
+            to_select = self.get_argument("to_select")
+            label = self.get_argument("label")
+            feature = self.get_argument("feature")
+            estimator = self.get_argument("estimator")
+
+            with open("./default.ipynb", "r", encoding="utf-8") as f:
+                origin = f.read()
+            cell = json.loads(origin)
+
+            obj = {
+                "cell_type": "code",
+                "execution_count": "null",
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "# Feature RFE"
+                    "params = dict(\n"
+                    "    dataframe=\"{}\",\n".format(dataframe),
+                    "    to_select=\"{}\",\n".format(to_select),
+                    "    label=\"{}\",\n".format(label),
+                    "    feature=\"{}\",\n".format(feature),
+                    "    estimator=\"{}\",\n".format(estimator),
+                    ")\n"
+                    "params"
+                ]
+            }
+            cell["cells"].insert(0, obj)
+
+            result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
+
+            with open("./default.ipynb", "w", encoding="utf-8") as f:
+                f.write(result)
+
+        # CHANGE: fit data
+        if target == "fit":
+            train = self.get_argument("train")
+            test = self.get_argument("test")
+            label = self.get_argument("label")
+            algo = self.get_argument("algo")
+            path = self.get_argument("path")
+
+            with open("./default.ipynb", "r", encoding="utf-8") as f:
+                origin = f.read()
+            cell = json.loads(origin)
+
+            obj = {
+                "cell_type": "code",
+                "execution_count": "null",
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "# Feature fit"
+                    "params = dict(\n"
+                    "    train=\"{}\",\n".format(train),
+                    "    test=\"{}\",\n".format(test),
+                    "    label=\"{}\",\n".format(label),
+                    "    algo=\"{}\",\n".format(algo),
+                    "    path=\"{}\",\n".format(path),
+                    ")\n"
+                    "params"
+                ]
+            }
+            cell["cells"].insert(0, obj)
+
+            result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
+
+            with open("./default.ipynb", "w", encoding="utf-8") as f:
+                f.write(result)
+
+        # CHANGE: save data
+        if target == "save":
+            model = self.get_argument("model")
+            train = self.get_argument("train")
+            test = self.get_argument("test")
+            label = self.get_argument("label")
+            path = self.get_argument("path")
+
+            with open("./default.ipynb", "r", encoding="utf-8") as f:
+                origin = f.read()
+            cell = json.loads(origin)
+
+            obj = {
+                "cell_type": "code",
+                "execution_count": "null",
+                "metadata": {},
+                "outputs": [],
+                "source": [
+                    "# Feature save"
+                    "params = dict(\n"
+                    "    model=\"{}\",\n".format(model),
+                    "    train=\"{}\",\n".format(train),
+                    "    test=\"{}\",\n".format(test),
+                    "    label=\"{}\",\n".format(label),
+                    "    path=\"{}\",\n".format(path),
+                    ")\n"
+                    "params"
+                ]
+            }
+            cell["cells"].insert(0, obj)
+
+            result = json.dumps(cell, ensure_ascii=False).replace('"null"', 'null')
+
+            with open("./default.ipynb", "w", encoding="utf-8") as f:
+                f.write(result)
+
+        self.write({"target": target})
 
 
 # CHANGE: Add new api...

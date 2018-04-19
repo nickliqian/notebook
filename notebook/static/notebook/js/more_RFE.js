@@ -11,14 +11,14 @@ define([
 ], function ($, dialog, i18n, _) {
     'use strict';
       var load = function(keyboard_manager, notebook) {
-          $('#boxing-menu').click(function () {
+          $('#RFE-menu').click(function () {
 
 
               var form_dataframe = $('<div/>').addClass('form-group')
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'boxing-dataframe')
+                          .attr('for', 'RFE-dataframe')
                           .attr('title', '数据集名称，必填')
                           .text('dataframe')
                   ).append(
@@ -28,19 +28,19 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'boxing-dataframe')
+                                  .attr('id', 'RFE-dataframe')
                                   .attr('type', 'text')
                                   .attr('placeholder', '数据集名称，必填')
                           )
                   );
 
-              var form_variable = $('<div/>').addClass('form-group')
+              var form_to_select = $('<div/>').addClass('form-group')
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'boxing-variable')
-                          .attr('title', '分箱变量名，必填')
-                          .text('variable')
+                          .attr('for', 'RFE-to_select')
+                          .attr('title', '变量个数，必填')
+                          .text('to_select')
                   ).append(
                       $('<div/>').addClass('col-sm-1')
                   ).append(
@@ -48,9 +48,9 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'boxing-variable')
+                                  .attr('id', 'RFE-to_select')
                                   .attr('type', 'text')
-                                  .attr('placeholder', '分箱变量名，必填')
+                                  .attr('placeholder', '变量个数，必填')
                           )
                   );
 
@@ -58,7 +58,7 @@ define([
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'boxing-label')
+                          .attr('for', 'RFE-label')
                           .attr('title', '标签变量名，必填')
                           .text('label')
                   ).append(
@@ -68,19 +68,19 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'boxing-label')
+                                  .attr('id', 'RFE-label')
                                   .attr('type', 'text')
                                   .attr('placeholder', '标签变量名，必填')
                           )
                   );
 
-              var form_no_default = $('<div/>').addClass('form-group')
+              var form_feature = $('<div/>').addClass('form-group')
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'boxing-no_default')
-                          .attr('title', '非违约的值，必填')
-                          .text('no_default')
+                          .attr('for', 'RFE-feature')
+                          .attr('title', '特征变量序列，可选')
+                          .text('feature')
                   ).append(
                       $('<div/>').addClass('col-sm-1')
                   ).append(
@@ -88,19 +88,19 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'boxing-no_default')
+                                  .attr('id', 'RFE-feature')
                                   .attr('type', 'text')
-                                  .attr('placeholder', '非违约的值，必填')
+                                  .attr('placeholder', '特征变量序列，可选')
                           )
                   );
 
-              var form_default = $('<div/>').addClass('form-group')
+              var form_estimator = $('<div/>').addClass('form-group')
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'boxing-default')
-                          .attr('title', '违约的值，必填')
-                          .text('default')
+                          .attr('for', 'RFE-estimator')
+                          .attr('title', '筛选方法，必填')
+                          .text('estimator')
                   ).append(
                       $('<div/>').addClass('col-sm-1')
                   ).append(
@@ -108,45 +108,23 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'boxing-default')
+                                  .attr('id', 'RFE-estimator')
                                   .attr('type', 'text')
-                                  .attr('placeholder', '违约的值，必填')
+                                  .attr('placeholder', '筛选方法，必填')
                           )
                   );
-
-              var form_bins = $('<div/>').addClass('form-group')
-                  .append(
-                      $('<label/>').addClass('col-sm-2')
-                          .addClass('control-label')
-                          .attr('for', 'boxing-bins')
-                          .attr('title', '分箱段数或者具体的分箱值，必填')
-                          .text('bins')
-                  ).append(
-                      $('<div/>').addClass('col-sm-1')
-                  ).append(
-                      $('<div/>').addClass('col-sm-8')
-                          .append(
-                              $('<input/>').addClass('form-control')
-                                  .addClass('input-sm')
-                                  .attr('id', 'boxing-bins')
-                                  .attr('type', 'text')
-                                  .attr('placeholder', '分箱段数或者具体的分箱值，必填')
-                          )
-                  );
-
 
               var form = $('<form/>').addClass('form-horizontal')
-                  .attr('id', 'feature-boxing-menu')
+                  .attr('id', 'model-RFE-menu')
                   .append(form_dataframe)
-                  .append(form_variable)
+                  .append(form_to_select)
                   .append(form_label)
-                  .append(form_no_default)
-                  .append(form_default)
-                  .append(form_bins);
+                  .append(form_feature)
+                  .append(form_estimator);
 
 
               dialog.modal({
-                  title: i18n.msg._('Boxing'),
+                  title: i18n.msg._('RFE'),
                   body: form,
                   keyboard_manager: keyboard_manager,
                   buttons: {
@@ -154,36 +132,21 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "dataframe": $("#boxing-dataframe").val(),
-                                  "variable": $("#boxing-variable").val(),
-                                  "label": $("#boxing-label").val(),
-                                  "no_default": $("#boxing-no_default").val(),
-                                  "default": $("#boxing-default").val(),
-                                  "bins": $("#boxing-bins").val(),
-                                  "target": "boxing",
+                                  "dataframe": $("#RFE-dataframe").val(),
+                                  "to_select": $("#RFE-to_select").val(),
+                                  "label": $("#RFE-label").val(),
+                                  "feature": $("#RFE-feature").val(),
+                                  "estimator": $("#RFE-estimator").val(),
+                                  "target": "RFE",
                               };
 
-                              // notebook.insert_cell_below("code", null);
-
-                              // notebook.select_next(true);
-                              // notebook.focus_cell();
-                              // var cell = notebook.get_selected_cell();
-                              // notebook.edit_mode();
-                              // notebook.handle_edit_mode(cell);
-
-                              // var select_div = $("div[class='cell'][class='code_cell'][class='unrendered'][class='selected']");
-                              // var e = $.Event("keypress");
-                              // e.keyCode = 13;
-                              // select_div.trigger(e);
 
                               $.get("/api/importDefault", Value, function (data) {
 
-                                  // notebook.restart_run_all(true);
-                                  // window.location.reload();
 
                               });
 
-                              window.location.reload();
+                              // window.location.reload();
                           }
                       }
                   }

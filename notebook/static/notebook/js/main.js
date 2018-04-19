@@ -43,8 +43,11 @@ requirejs([
     'notebook/js/kernelselector',
     'codemirror/lib/codemirror',
     'notebook/js/about',
-    'notebook/js/more_split',
+    'notebook/js/more_split',  // CHANGE: add function
     'notebook/js/more_boxing',
+    'notebook/js/more_RFE',
+    'notebook/js/more_fit',
+    'notebook/js/more_save',
     'notebook/js/searchandreplace',
     'notebook/js/clipboard',
     'bidi/bidi'
@@ -71,8 +74,11 @@ requirejs([
     kernelselector,
     CodeMirror,
     about,
-    more_split,
+    more_split,  // CHANGE: add function
     more_boxing,
+    more_RFE,
+    more_fit,
+    more_save,
     searchandreplace,
     clipboard,
     bidi
@@ -169,6 +175,9 @@ requirejs([
     // CHANGE: more function 执行更多功能
     more_split.load(keyboard_manager, notebook);
     more_boxing.load(keyboard_manager, notebook);
+    more_RFE.load(keyboard_manager, notebook);
+    more_fit.load(keyboard_manager, notebook);
+    more_save.load(keyboard_manager, notebook);
 
     $('body').append('<div id="fonttest"><pre><span id="test1">x</span>'+
                      '<span id="test2" style="font-weight: bold;">x</span>'+
