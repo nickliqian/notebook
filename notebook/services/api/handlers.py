@@ -76,7 +76,7 @@ class APIImportParamsToFile(APIHandler):
                 "metadata": {},
                 "outputs": [],
                 "source": [
-                    "# Feature boxing"
+                    "# Feature boxing\n"
                     "params = dict(\n"
                     "    dataframe=\"{}\",\n".format(dataframe),
                     "    variable=\"{}\",\n".format(variable),
@@ -111,7 +111,7 @@ class APIImportParamsToFile(APIHandler):
                 "metadata": {},
                 "outputs": [],
                 "source": [
-                    "# Feature split"
+                    "# Feature split\n"
                     "params = dict(\n"
                     "    dataframe=\"{}\",\n".format(dataframe),
                     "    ratio=\"{}\",\n".format(ratio),
@@ -145,7 +145,7 @@ class APIImportParamsToFile(APIHandler):
                 "metadata": {},
                 "outputs": [],
                 "source": [
-                    "# Feature RFE"
+                    "# Feature RFE\n"
                     "params = dict(\n"
                     "    dataframe=\"{}\",\n".format(dataframe),
                     "    to_select=\"{}\",\n".format(to_select),
@@ -181,7 +181,7 @@ class APIImportParamsToFile(APIHandler):
                 "metadata": {},
                 "outputs": [],
                 "source": [
-                    "# Feature fit"
+                    "# Feature fit\n"
                     "params = dict(\n"
                     "    train=\"{}\",\n".format(train),
                     "    test=\"{}\",\n".format(test),
@@ -217,7 +217,7 @@ class APIImportParamsToFile(APIHandler):
                 "metadata": {},
                 "outputs": [],
                 "source": [
-                    "# Feature save"
+                    "# Feature save\n"
                     "params = dict(\n"
                     "    model=\"{}\",\n".format(model),
                     "    train=\"{}\",\n".format(train),
