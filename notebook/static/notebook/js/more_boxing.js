@@ -10,7 +10,7 @@ define([
     'underscore',
 ], function ($, dialog, i18n, _) {
     'use strict';
-      var load = function(keyboard_manager) {
+      var load = function(keyboard_manager, notebook) {
           $('#boxing-menu').click(function () {
 
 
@@ -146,14 +146,14 @@ define([
 
 
               dialog.modal({
-                  title: i18n.msg._('Split...'),
+                  title: i18n.msg._('Boxing'),
                   body: form,
                   keyboard_manager: keyboard_manager,
                   buttons: {
-                      'Import Params': {
+                      'Run': {
                           class: "btn-primary",
                           click: function () {
-                              boxingValue = {
+                              var boxingValue = {
                                   "dataframe": $("#boxing-dataframe").val(),
                                   "variable": $("#boxing-variable").val(),
                                   "label": $("#boxing-label").val(),
@@ -161,13 +161,28 @@ define([
                                   "default": $("#boxing-default").val(),
                                   "bins": $("#boxing-bins").val()
                               };
-                              console.log("request");
-                              console.log(boxingValue);
+
+                              // notebook.insert_cell_below("code", null);
+
+                              // notebook.select_next(true);
+                              // notebook.focus_cell();
+                              // var cell = notebook.get_selected_cell();
+                              // notebook.edit_mode();
+                              // notebook.handle_edit_mode(cell);
+
+                              // var select_div = $("div[class='cell'][class='code_cell'][class='unrendered'][class='selected']");
+                              // var e = $.Event("keypress");
+                              // e.keyCode = 13;
+                              // select_div.trigger(e);
+
                               $.get("/api/importDefault", boxingValue, function (data) {
-                                  console.log("response");
-                                  console.log(data);
-                                  window.location.reload();
+
+                                  // notebook.restart_run_all(true);
+                                  // window.location.reload();
+
                               });
+
+                              window.location.reload();
                           }
                       }
                   }

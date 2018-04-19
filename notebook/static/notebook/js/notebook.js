@@ -1297,6 +1297,7 @@ define([
             case 'code':
                 cell = new codecell.CodeCell(this.kernel, cell_options);
                 cell.set_input_prompt();
+                // cell.set_text("1234");
                 break;
             case 'markdown':
                 cell = new textcell.MarkdownCell(cell_options);

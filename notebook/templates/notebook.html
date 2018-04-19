@@ -415,30 +415,6 @@ data-notebook-path="{{notebook_path | urlencode}}"
 <script>
 
 
-{#    $("#boxing-menu").click(function(){#}
-{#        $("body").attr("class", "notebook_app edit_mode");#}
-{#        console.log("TEST...");#}
-{#    });#}
-
-    var boxingValue;
-    $("#boxing-button").click(function(){
-
-        boxingValue = {
-            "dataframe": $("#boxing-dataframe").val(),
-            "variable": $("#boxing-variable").val(),
-            "label": $("#boxing-label").val(),
-            "no_default": $("#boxing-no_default").val(),
-            "default": $("#boxing-default").val(),
-            "bins": $("#boxing-bins").val()
-        };
-        console.log(boxingValue);
-      $("#boxing-button").attr("data-dismiss","modal");
-      $.get("/api/importDefault", boxingValue, function(data) {
-          console.log(data);
-      });
-
-
-    });
 </script>
 
 {% endblock %}

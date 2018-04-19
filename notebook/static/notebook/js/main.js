@@ -165,8 +165,10 @@ requirejs([
     var kernel_selector = new kernelselector.KernelSelector(
         '#kernel_logo_widget', notebook);
     searchandreplace.load(keyboard_manager);
-    more_split.load(keyboard_manager);
-    more_boxing.load(keyboard_manager);
+
+    // CHANGE: more function 执行更多功能
+    more_split.load(keyboard_manager, notebook);
+    more_boxing.load(keyboard_manager, notebook);
 
     $('body').append('<div id="fonttest"><pre><span id="test1">x</span>'+
                      '<span id="test2" style="font-weight: bold;">x</span>'+

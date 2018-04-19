@@ -73,13 +73,14 @@ class APIImportParamsToFile(APIHandler):
             "outputs": [],
             "source": [
                 "params = dict(\n"
-                "dataframe=\"{}\"\n".format(dataframe),
-                "variable=\"{}\"\n".format(variable),
-                "label=\"{}\"\n".format(label),
-                "no_default={}\n".format(no_default),
-                "default={}\n".format(default),
+                "dataframe=\"{}\",\n".format(dataframe),
+                "variable=\"{}\",\n".format(variable),
+                "label=\"{}\",\n".format(label),
+                "no_default={},\n".format(no_default),
+                "default={},\n".format(default),
                 "bins={}\n".format(bins),
-                ")"
+                ")\n"
+                "params"
             ]
         }
         cell["cells"].insert(0, obj)
