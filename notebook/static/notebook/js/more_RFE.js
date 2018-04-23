@@ -141,12 +141,23 @@ define([
                               };
 
 
-                              $.get("/api/importDefault", Value, function (data) {
+                              var now_cell = notebook.get_selected_cell();
 
+                              var content = '# Model RFE\n'+
+                                  'import model as ml\n'+
+                                  'ml.rfe_lr(' +
+                                  Value.dataframe +
+                                  ',' +
+                                  Value.to_select +
+                                  ',' +
+                                  Value.label +
+                                  ',' +
+                                  Value.feature +
+                                  ')';
 
-                              });
-
-                              // window.location.reload();
+                              now_cell.set_text(content);
+                              notebook.execute_cell_and_select_below();
+                              notebook.save_checkpoint();
                           }
                       }
                   }

@@ -165,31 +165,21 @@ define([
 
                               var now_cell = notebook.get_selected_cell();
 
-                              var content = '# Feature boxing\n' +
-                                  'import six\n' +
-                                  'print(six.PY2)\n' +
-                                  'print(six.PY3)\n' +
-                                  'params = dict(\n' +
-                                  '    dataframe="' +
+                              var content = '# Feature Boxing\n'+
+                                  'import feature as ft\n' +
+                                  'ft.split_box(' +
                                   Value.dataframe +
-                                  '",\n' +
-                                  '    variable="' +
+                                  ',' +
                                   Value.variable +
-                                  '",\n' +
-                                  '    label="' +
+                                  ',' +
                                   Value.label +
-                                  '",\n' +
-                                  '    no_default=' +
+                                  ',' +
                                   Value.no_default +
-                                  ',\n' +
-                                  '    default=' +
+                                  ',' +
                                   Value.default +
-                                  ',\n' +
-                                  '    bins=' +
+                                  ',' +
                                   Value.bins +
-                                  '\n' +
-                                  ')\n' +
-                                  'params';
+                                  ')';
 
                               now_cell.set_text(content);
                               notebook.execute_cell_and_select_below();

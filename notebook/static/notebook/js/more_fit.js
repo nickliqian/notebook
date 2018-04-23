@@ -142,14 +142,23 @@ define([
                               };
 
 
-                              $.get("/api/importDefault", Value, function (data) {
+                              var now_cell = notebook.get_selected_cell();
 
-                                  // notebook.restart_run_all(true);
-                                  // window.location.reload();
+                              var content = '# Model Fit\n'+
+                                  'import model as ml\n'+
+                                  'ml.fit(' +
+                                  Value.train +
+                                  ',' +
+                                  Value.test +
+                                  ',' +
+                                  Value.label +
+                                  ',' +
+                                  Value.algo +
+                                  ')';
 
-                              });
-
-                              // window.location.reload();
+                              now_cell.set_text(content);
+                              notebook.execute_cell_and_select_below();
+                              notebook.save_checkpoint();
                           }
                       }
                   }
