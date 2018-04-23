@@ -90,11 +90,23 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "dataframe": $("#split-dataframe").val(),
-                                  "ratio": $("#split-ratio").val(),
-                                  "seed": $("#split-seed").val(),
+                                  "dataframe": $("#split-dataframe").val() || "None",
+                                  "ratio": $("#split-ratio").val() || "None",
+                                  "seed": $("#split-seed").val() || "None",
                                   "target": "split",
                               };
+
+                              // 获取当前行的状态，是否有内容
+                              var before_cell = notebook.get_selected_cell();
+                              var result = before_cell.get_text();
+
+                              // 如果当前行状态为空则新建一行，并且置为选中状态
+                              if (result!=="") {
+                                  // 新建一行
+                                  notebook.insert_cell_below();
+                                  notebook.select_next(true);
+                                  notebook.focus_cell();
+                              }
 
                               var now_cell = notebook.get_selected_cell();
 

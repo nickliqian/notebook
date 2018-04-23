@@ -133,14 +133,25 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "train": $("#fit-train").val(),
-                                  "test": $("#fit-test").val(),
-                                  "label": $("#fit-label").val(),
-                                  "algo": $("#fit-algo").val(),
-                                  "path": $("#fit-path").val(),
+                                  "train": $("#fit-train").val() || "None",
+                                  "test": $("#fit-test").val() || "None",
+                                  "label": $("#fit-label").val() || "None",
+                                  "algo": $("#fit-algo").val() || "None",
+                                  "path": $("#fit-path").val() || "None",
                                   "target": "fit",
                               };
 
+                              // 获取当前行的状态，是否有内容
+                              var before_cell = notebook.get_selected_cell();
+                              var result = before_cell.get_text();
+
+                              // 如果当前行状态为空则新建一行，并且置为选中状态
+                              if (result!=="") {
+                                  // 新建一行
+                                  notebook.insert_cell_below();
+                                  notebook.select_next(true);
+                                  notebook.focus_cell();
+                              }
 
                               var now_cell = notebook.get_selected_cell();
 

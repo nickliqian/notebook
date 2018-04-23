@@ -142,7 +142,13 @@ define([
                   .append(form_label)
                   .append(form_no_default)
                   .append(form_default)
-                  .append(form_bins);
+                  .append(form_bins)
+                  .append(
+                      $('<div/>').attr("id", "boxing_warning")
+                          .css("color", "red")
+                          .css("float", "right")
+                          .css("padding-bottom", "5px")
+                  );
 
 
               dialog.modal({
@@ -163,6 +169,59 @@ define([
                                   "target": "boxing",
                               };
 
+                              // 如果必选变量没有填写提交则无法提交
+                              if (Value.dataframe===""){
+                                  $("#boxing_warning").text("参数dataframe不能为空");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-dataframe]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.variable===""){
+                                  $("#boxing_warning").text("参数variable不能为空");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-variable]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.label===""){
+                                  $("#boxing_warning").text("参数label不能为空");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-label]").css("color", "red");
+
+                                  return false;
+                              }
+                              if (Value.no_default===""){
+                                  $("#boxing_warning").text("参数no_default不能为空");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-no_default]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.default===""){
+                                  $("#boxing_warning").text("参数default不能为空");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-default]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.bins===""){
+                                  $("#boxing_warning").text("参数bins不能为空");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-bins]").css("color", "red");
+                                  return false;
+                              }
+
+
+                              // 获取当前行的状态，是否有内容
+                              var before_cell = notebook.get_selected_cell();
+                              var result = before_cell.get_text();
+
+                              // 如果当前行状态为空则新建一行，并且置为选中状态
+                              if (result!=="") {
+                                  // 新建一行
+                                  notebook.insert_cell_below();
+                                  notebook.select_next(true);
+                                  notebook.focus_cell();
+                              }
+
+                              // 选中当前行cell对象
                               var now_cell = notebook.get_selected_cell();
 
                               var content = '# Feature Boxing\n'+
@@ -182,8 +241,11 @@ define([
                                   ')';
 
                               now_cell.set_text(content);
+
+                              // 执行当前选中行并保存
                               notebook.execute_cell_and_select_below();
                               notebook.save_checkpoint();
+
 
                           }
                       }

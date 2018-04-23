@@ -133,13 +133,25 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "model": $("#save-model").val(),
-                                  "train": $("#save-train").val(),
-                                  "test": $("#save-test").val(),
-                                  "label": $("#save-label").val(),
-                                  "path": $("#save-path").val(),
+                                  "model": $("#save-model").val() || "None",
+                                  "train": $("#save-train").val() || "None",
+                                  "test": $("#save-test").val() || "None",
+                                  "label": $("#save-label").val() || "None",
+                                  "path": $("#save-path").val() || "None",
                                   "target": "save",
                               };
+
+                              // 获取当前行的状态，是否有内容
+                              var before_cell = notebook.get_selected_cell();
+                              var result = before_cell.get_text();
+
+                              // 如果当前行状态为空则新建一行，并且置为选中状态
+                              if (result!=="") {
+                                  // 新建一行
+                                  notebook.insert_cell_below();
+                                  notebook.select_next(true);
+                                  notebook.focus_cell();
+                              }
 
                               var now_cell = notebook.get_selected_cell();
 
