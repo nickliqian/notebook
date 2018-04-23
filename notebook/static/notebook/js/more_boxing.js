@@ -163,7 +163,77 @@ define([
                                   "target": "boxing",
                               };
 
+                              // 选择并移动到下一格 insert cell below
                               // notebook.insert_cell_below("code", null);
+                              // notebook.select_next(true);
+                              // notebook.focus_cell();
+
+                              var abc = notebook.get_selected_cell();
+                              // console.log(cell);
+                              // console.log(cell.metadata);
+                              // console.log(cell.source);
+                              // console.log("===");
+                              // console.log(abc);
+                              // console.log(abc.source);
+                              // console.log(JSON.stringify(abc));
+                              // console.log("-==-==");
+
+
+                              var content = '# Feature boxing\n' +
+                                  'params = dict(\n' +
+                                  '    dataframe="' +
+                                  Value.dataframe +
+                                  '",\n' +
+                                  '    variable="' +
+                                  Value.variable +
+                                  '",\n' +
+                                  '    label="' +
+                                  Value.label +
+                                  '",\n' +
+                                  '    no_default=' +
+                                  Value.no_default +
+                                  ',\n' +
+                                  '    default=' +
+                                  Value.default +
+                                  ',\n' +
+                                  '    bins=' +
+                                  Value.bins +
+                                  '\n' +
+                                  ')\n' +
+                                  'params';
+
+                              abc.set_text(content);
+                              notebook.execute_cell_and_select_below();
+                              notebook.save_checkpoint();
+
+
+                              // console.log("=");
+                              // console.log(notebook.get_selected_cell());
+                              // console.log(notebook.get_selected_index());
+                              // console.log(notebook.mode);
+                              //
+                              // // 选择并移动到下一格 insert cell below
+                              // notebook.insert_cell_below("code", null);
+                              // notebook.select_next(true);
+                              // notebook.focus_cell();
+                              //
+                              // console.log("==");
+                              // console.log(notebook.get_selected_cell());
+                              // console.log(notebook.get_selected_index());
+                              // console.log(notebook.mode);
+                              //
+                              // // 进入编辑模式 enter edit mode
+                              // notebook.edit_mode();
+                              // notebook.handle_edit_mode();
+                              //
+                              // console.log("===");
+                              // console.log(notebook.get_selected_cell());
+                              // console.log(notebook.get_selected_index());
+                              // console.log(notebook.mode);
+
+                              // notebook.ensure_focused();
+                              // var cm = notebook.get_selected_cell().code_mirror;
+                              // cm.setCursor(0, 0);
 
                               // notebook.select_next(true);
                               // notebook.focus_cell();
@@ -176,14 +246,14 @@ define([
                               // e.keyCode = 13;
                               // select_div.trigger(e);
 
-                              $.get("/api/importDefault", Value, function (data) {
+                              // $.get("/api/importDefault", Value, function (data) {
 
                                   // notebook.restart_run_all(true);
                                   // window.location.reload();
 
-                              });
+                              // });
 
-                              window.location.reload();
+                              // window.location.reload();
                           }
                       }
                   }
