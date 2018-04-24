@@ -121,7 +121,13 @@ define([
                   .append(form_train)
                   .append(form_test)
                   .append(form_label)
-                  .append(form_path);
+                  .append(form_path)
+                  .append(
+                      $('<div/>').attr("id", "save_warning")
+                          .css("color", "red")
+                          .css("float", "right")
+                          .css("padding-bottom", "5px")
+                  );
 
 
               dialog.modal({
@@ -133,13 +139,47 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "model": $("#save-model").val() || "None",
-                                  "train": $("#save-train").val() || "None",
-                                  "test": $("#save-test").val() || "None",
-                                  "label": $("#save-label").val() || "None",
-                                  "path": $("#save-path").val() || "None",
+                                  "model": $("#save-model").val(),
+                                  "train": $("#save-train").val(),
+                                  "test": $("#save-test").val(),
+                                  "label": $("#save-label").val(),
+                                  "path": $("#save-path").val(),
                                   "target": "save",
                               };
+
+
+                              // 如果必选变量没有填写提交则无法提交
+                              if (Value.model===""){
+                                  $("#save_warning").text("参数model不能为空");
+                                  $("#model-save-menu div label").css("color", "#000");
+                                  $("[for=save-model]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.train===""){
+                                  $("#save_warning").text("参数train不能为空");
+                                  $("#model-save-menu div label").css("color", "#000");
+                                  $("[for=save-train]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.test===""){
+                                  $("#save_warning").text("参数test不能为空");
+                                  $("#model-save-menu div label").css("color", "#000");
+                                  $("[for=save-test]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.label===""){
+                                  $("#save_warning").text("参数label不能为空");
+                                  $("#model-save-menu div label").css("color", "#000");
+                                  $("[for=save-label]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.path===""){
+                                  $("#save_warning").text("参数path不能为空");
+                                  $("#model-save-menu div label").css("color", "#000");
+                                  $("[for=save-path]").css("color", "red");
+                                  return false;
+                              }
+
 
                               // 获取当前行的状态，是否有内容
                               var before_cell = notebook.get_selected_cell();
@@ -157,17 +197,17 @@ define([
 
                               var content = '# Model Save\n'+
                                   'import model as ml\n'+
-                                  'ml.save(' +
+                                  'ml.save(model="' +
                                   Value.model +
-                                  ',' +
+                                  '",train="' +
                                   Value.train +
-                                  ',' +
+                                  '",test="' +
                                   Value.test +
-                                  ',' +
+                                  '",label="' +
                                   Value.label +
-                                  ',' +
+                                  '",path="' +
                                   Value.path +
-                                  ')';
+                                  '")';
 
                               now_cell.set_text(content);
                               notebook.execute_cell_and_select_below();

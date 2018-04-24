@@ -19,7 +19,7 @@ define([
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
                           .attr('for', 'boxing-dataframe')
-                          .attr('title', '数据集名称，必填')
+                          .attr('title', '数据集，必填')
                           .text('dataframe')
                   ).append(
                       $('<div/>').addClass('col-sm-1')
@@ -169,9 +169,24 @@ define([
                                   "target": "boxing",
                               };
 
+
+                              // 参数条件
+                              if(isNaN(Number(Value.no_default))){
+                                  Value.no_default='"'+ Value.no_default +'"';
+                              }
+                              if(isNaN(Number(Value.default))){
+                                  Value.default='"'+ Value.default +'"';
+                              }
+                              if(/^[a-zA-Z]/.test(Value.bins)){
+                                  $("#boxing_warning").text("参数bins应为int或list类型");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-bins]").css("color", "red");
+                                  return false;
+                              }
+
                               // 如果必选变量没有填写提交则无法提交
                               if (Value.dataframe===""){
-                                  $("#boxing_warning").text("参数dataframe不能为空");
+                                  $("#boxing_warning").text("参数dataframe不能为空和包含非法字符");
                                   $("#feature-boxing-menu div label").css("color", "#000");
                                   $("[for=boxing-dataframe]").css("color", "red");
                                   return false;
@@ -226,19 +241,19 @@ define([
 
                               var content = '# Feature Boxing\n'+
                                   'import feature as ft\n' +
-                                  'ft.split_box(' +
+                                  'ft.split_box(dataframe=' +
                                   Value.dataframe +
-                                  ',' +
+                                  ',variable="' +
                                   Value.variable +
-                                  ',' +
+                                  '",label="' +
                                   Value.label +
-                                  ',' +
+                                  '",no_default=' +
                                   Value.no_default +
-                                  ',' +
+                                  ',default="' +
                                   Value.default +
-                                  ',' +
+                                  '",bins="' +
                                   Value.bins +
-                                  ')';
+                                  '")';
 
                               now_cell.set_text(content);
 

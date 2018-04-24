@@ -106,11 +106,14 @@ define([
                   ).append(
                       $('<div/>').addClass('col-sm-8')
                           .append(
-                              $('<input/>').addClass('form-control')
-                                  .addClass('input-sm')
+                              $('<select/>').addClass('form-control')
                                   .attr('id', 'RFE-estimator')
-                                  .attr('type', 'text')
-                                  .attr('placeholder', '筛选方法，必填')
+                                  .attr('name', 'RFE-estimator')
+                                  .css("margin-left", "0px")
+                                  .append(
+                                      $('<option/>').text("LogisticRegression")
+                                          .attr("value", "LogisticRegression")
+                                  )
                           )
                   );
 
@@ -120,8 +123,13 @@ define([
                   .append(form_to_select)
                   .append(form_label)
                   .append(form_feature)
-                  .append(form_estimator);
-
+                  .append(form_estimator)
+                  .append(
+                      $('<div/>').attr("id", "RFE_warning")
+                          .css("color", "red")
+                          .css("float", "right")
+                          .css("padding-bottom", "5px")
+                  );
 
               dialog.modal({
                   title: i18n.msg._('RFE'),
@@ -132,13 +140,40 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "dataframe": $("#RFE-dataframe").val() || "None",
-                                  "to_select": $("#RFE-to_select").val() || "None",
-                                  "label": $("#RFE-label").val() || "None",
+                                  "dataframe": $("#RFE-dataframe").val(),
+                                  "to_select": $("#RFE-to_select").val(),
+                                  "label": $("#RFE-label").val(),
                                   "feature": $("#RFE-feature").val() || "None",
-                                  "estimator": $("#RFE-estimator").val() || "None",
+                                  "estimator": $("#RFE-estimator").val(),
                                   "target": "RFE",
                               };
+
+                              if(!(/(^[1-9]\d*$)/.test(Value.to_select))){
+                                  $("#RFE_warning").text("参数to_select应为正整数");
+                                  $("#feature-RFE-menu div label").css("color", "#000");
+                                  $("[for=RFE-to_select]").css("color", "red");
+                                  return false;
+                              }
+
+                              // 如果必选变量没有填写提交则无法提交
+                              if (Value.dataframe===""){
+                                  $("#RFE_warning").text("参数dataframe不能为空");
+                                  $("#model-RFE-menu div label").css("color", "#000");
+                                  $("[for=RFE-dataframe]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.to_select===""){
+                                  $("#RFE_warning").text("参数to_select不能为空");
+                                  $("#model-RFE-menu div label").css("color", "#000");
+                                  $("[for=RFE-to_select]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.label===""){
+                                  $("#RFE_warning").text("参数label不能为空");
+                                  $("#model-RFE-menu div label").css("color", "#000");
+                                  $("[for=RFE-label]").css("color", "red");
+                                  return false;
+                              }
 
                               // 获取当前行的状态，是否有内容
                               var before_cell = notebook.get_selected_cell();
@@ -156,15 +191,17 @@ define([
 
                               var content = '# Model RFE\n'+
                                   'import model as ml\n'+
-                                  'ml.rfe_lr(' +
+                                  'ml.rfe_lr(dataframe=' +
                                   Value.dataframe +
-                                  ',' +
+                                  ',to_select="' +
                                   Value.to_select +
-                                  ',' +
+                                  '",label="' +
                                   Value.label +
-                                  ',' +
+                                  '",feature=' +
                                   Value.feature +
-                                  ')';
+                                  ',estimator="' +
+                                  Value.estimator +
+                                  '")';
 
                               now_cell.set_text(content);
                               notebook.execute_cell_and_select_below();

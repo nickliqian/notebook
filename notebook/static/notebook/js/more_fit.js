@@ -86,11 +86,14 @@ define([
                   ).append(
                       $('<div/>').addClass('col-sm-8')
                           .append(
-                              $('<input/>').addClass('form-control')
-                                  .addClass('input-sm')
+                              $('<select/>').addClass('form-control')
                                   .attr('id', 'fit-algo')
-                                  .attr('type', 'text')
-                                  .attr('placeholder', '建模算法，必填')
+                                  .attr('name', 'fit-algo')
+                                  .css("margin-left", "0px")
+                                  .append(
+                                      $('<option/>').text("LogisticRegression")
+                                          .attr("value", "LogisticRegression")
+                                  )
                           )
                   );
 
@@ -121,7 +124,13 @@ define([
                   .append(form_test)
                   .append(form_label)
                   .append(form_algo)
-                  .append(form_path);
+                  .append(form_path)
+                  .append(
+                      $('<div/>').attr("id", "fit_warning")
+                          .css("color", "red")
+                          .css("float", "right")
+                          .css("padding-bottom", "5px")
+                  );
 
 
               dialog.modal({
@@ -133,13 +142,40 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "train": $("#fit-train").val() || "None",
-                                  "test": $("#fit-test").val() || "None",
-                                  "label": $("#fit-label").val() || "None",
-                                  "algo": $("#fit-algo").val() || "None",
-                                  "path": $("#fit-path").val() || "None",
+                                  "train": $("#fit-train").val(),
+                                  "test": $("#fit-test").val(),
+                                  "label": $("#fit-label").val(),
+                                  "algo": $("#fit-algo").val(),
+                                  "path": $("#fit-path").val(),
                                   "target": "fit",
                               };
+
+
+                              // 如果必选变量没有填写提交则无法提交
+                              if (Value.train===""){
+                                  $("#fit_warning").text("参数train不能为空");
+                                  $("#model-fit-menu div label").css("color", "#000");
+                                  $("[for=fit-train]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.test===""){
+                                  $("#fit_warning").text("参数test不能为空");
+                                  $("#model-fit-menu div label").css("color", "#000");
+                                  $("[for=fit-test]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.label===""){
+                                  $("#fit_warning").text("参数label不能为空");
+                                  $("#model-fit-menu div label").css("color", "#000");
+                                  $("[for=fit-label]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.path===""){
+                                  $("#fit_warning").text("参数path不能为空");
+                                  $("#model-fit-menu div label").css("color", "#000");
+                                  $("[for=fit-path]").css("color", "red");
+                                  return false;
+                              }
 
                               // 获取当前行的状态，是否有内容
                               var before_cell = notebook.get_selected_cell();
@@ -157,15 +193,17 @@ define([
 
                               var content = '# Model Fit\n'+
                                   'import model as ml\n'+
-                                  'ml.fit(' +
+                                  'ml.fit(train="' +
                                   Value.train +
-                                  ',' +
+                                  '",test="' +
                                   Value.test +
-                                  ',' +
+                                  '",label="' +
                                   Value.label +
-                                  ',' +
+                                  '",algo="' +
                                   Value.algo +
-                                  ')';
+                                  '",path="' +
+                                  Value.path +
+                                  '")';
 
                               now_cell.set_text(content);
                               notebook.execute_cell_and_select_below();
