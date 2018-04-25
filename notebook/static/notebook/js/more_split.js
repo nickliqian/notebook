@@ -14,13 +14,13 @@ define([
           $('#split-menu').click(function () {
 
 
-              var form_dataframe = $('<div/>').addClass('form-group')
+              var form_data = $('<div/>').addClass('form-group')
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'split-dataframe')
+                          .attr('for', 'split-data')
                           .attr('title', '数据集名称，必填')
-                          .text('dataframe')
+                          .text('data')
                   ).append(
                       $('<div/>').addClass('col-sm-1')
                   ).append(
@@ -28,7 +28,7 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'split-dataframe')
+                                  .attr('id', 'split-data')
                                   .attr('type', 'text')
                                   .attr('placeholder', '数据集名称，必填')
                           )
@@ -76,7 +76,7 @@ define([
 
               var form = $('<form/>').addClass('form-horizontal')
                   .attr('id', 'feature-split-menu')
-                  .append(form_dataframe)
+                  .append(form_data)
                   .append(form_ratio)
                   .append(form_seed)
                   .append(
@@ -96,7 +96,7 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "dataframe": $("#split-dataframe").val(),
+                                  "data": $("#split-data").val(),
                                   "ratio": $("#split-ratio").val() || "0.7",
                                   "seed": $("#split-seed").val() || "None",
                                   "target": "split",
@@ -106,27 +106,26 @@ define([
                                   return typeof obj === 'number' && obj%1 === 0;      //是整数，则返回true，否则返回false
                               }
 
-
                               // 参数条件
+                              // 如果必选变量没有填写提交则无法提交
+                              if (Value.data==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.data)){
+                                  $("#split_warning").text("参数data不能为空，应为不以数字开头且包含数字、字母、下划线的变量字符串");
+                                  $("#feature-split-menu div label").css("color", "#000");
+                                  $("[for=split-data]").css("color", "red");
+                                  return false;
+                              }
                               var ratio = parseFloat(Value.ratio);
                               if(Value.ratio <=0 || Value.ratio>=1 || isNaN(ratio)){
-                                  $("#split_warning").text("参数ratio取值范围在0~1之间的浮点数");
+                                  $("#split_warning").text("参数ratio取值范围在0~1之间的浮点数，不填默认为0.7");
                                   $("#feature-split-menu div label").css("color", "#000");
                                   $("[for=split-ratio]").css("color", "red");
                                   return false;
                               }
-                              if(!(/(^[1-9]\d*$)/.test(Value.seed)) || Value.seed === "None"){
+
+                              if(!/^[0-9]+$/.test(Value.seed) && (Value.seed !== "None")){
                                   $("#split_warning").text("参数seed应为正整数");
                                   $("#feature-split-menu div label").css("color", "#000");
                                   $("[for=split-seed]").css("color", "red");
-                                  return false;
-                              }
-
-                              // 如果必选变量没有填写提交则无法提交
-                              if (Value.dataframe===""){
-                                  $("#split_warning").text("参数dataframe不能为空");
-                                  $("#feature-split-menu div label").css("color", "#000");
-                                  $("[for=split-dataframe]").css("color", "red");
                                   return false;
                               }
 
@@ -147,8 +146,8 @@ define([
 
                               var content = '# Feature Split\n'+
                                   'import feature as ft\n'+
-                                  'train,test=ft.split_data(dataframe=' +
-                                  Value.dataframe +
+                                  'train,test=ft.split_data(data=' +
+                                  Value.data +
                                   ',ratio=' +
                                   Value.ratio +
                                   ',seed=' +

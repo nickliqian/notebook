@@ -14,13 +14,13 @@ define([
           $('#boxing-menu').click(function () {
 
 
-              var form_dataframe = $('<div/>').addClass('form-group')
+              var form_data = $('<div/>').addClass('form-group')
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'boxing-dataframe')
+                          .attr('for', 'boxing-data')
                           .attr('title', '数据集，必填')
-                          .text('dataframe')
+                          .text('data')
                   ).append(
                       $('<div/>').addClass('col-sm-1')
                   ).append(
@@ -28,7 +28,7 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'boxing-dataframe')
+                                  .attr('id', 'boxing-data')
                                   .attr('type', 'text')
                                   .attr('placeholder', '数据集名称，必填')
                           )
@@ -137,7 +137,7 @@ define([
 
               var form = $('<form/>').addClass('form-horizontal')
                   .attr('id', 'feature-boxing-menu')
-                  .append(form_dataframe)
+                  .append(form_data)
                   .append(form_variable)
                   .append(form_label)
                   .append(form_no_default)
@@ -160,7 +160,7 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "dataframe": $("#boxing-dataframe").val(),
+                                  "data": $("#boxing-data").val(),
                                   "variable": $("#boxing-variable").val(),
                                   "label": $("#boxing-label").val(),
                                   "no_default": $("#boxing-no_default").val(),
@@ -169,58 +169,50 @@ define([
                                   "target": "boxing",
                               };
 
+                              // 如果必选变量没有填写提交则无法提交
+                              if (Value.data==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.data)){
+                                  $("#boxing_warning").text("参数data不能为空，应为不以数字开头且包含数字、字母、下划线的变量字符串");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-data]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.variable==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.variable)){
+                                  $("#boxing_warning").text("参数variable不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-variable]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.label==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.label)){
+                                  $("#boxing_warning").text("参数label不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-label]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.no_default==="" || !(/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.no_default) || /^[0-9]+$/.test(Value.no_default))){
+                                  $("#boxing_warning").text("参数no_default不能为空，应为纯数字或字符串");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-no_default]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.default==="" || !(/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.default) || /^[0-9]+$/.test(Value.default))){
+                                  $("#boxing_warning").text("参数default不能为空，应为纯数字或字符串");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-default]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.bins==="" || !(/\[\d(,\d){1,}\]/.test(Value.bins) || /^[0-9]+$/.test(Value.bins))){
+                                  $("#boxing_warning").text("参数bins不能为空且应为整数或者元素个数大于2的整数列表");
+                                  $("#feature-boxing-menu div label").css("color", "#000");
+                                  $("[for=boxing-bins]").css("color", "red");
+                                  return false;
+                              }
 
-                              // 参数条件
+                              // 参数条件 数字则转为数字输出，字符串则不变
                               if(isNaN(Number(Value.no_default))){
                                   Value.no_default='"'+ Value.no_default +'"';
                               }
                               if(isNaN(Number(Value.default))){
                                   Value.default='"'+ Value.default +'"';
-                              }
-                              if(/^[a-zA-Z]/.test(Value.bins)){
-                                  $("#boxing_warning").text("参数bins应为int或list类型");
-                                  $("#feature-boxing-menu div label").css("color", "#000");
-                                  $("[for=boxing-bins]").css("color", "red");
-                                  return false;
-                              }
-
-                              // 如果必选变量没有填写提交则无法提交
-                              if (Value.dataframe===""){
-                                  $("#boxing_warning").text("参数dataframe不能为空和包含非法字符");
-                                  $("#feature-boxing-menu div label").css("color", "#000");
-                                  $("[for=boxing-dataframe]").css("color", "red");
-                                  return false;
-                              }
-                              if (Value.variable===""){
-                                  $("#boxing_warning").text("参数variable不能为空");
-                                  $("#feature-boxing-menu div label").css("color", "#000");
-                                  $("[for=boxing-variable]").css("color", "red");
-                                  return false;
-                              }
-                              if (Value.label===""){
-                                  $("#boxing_warning").text("参数label不能为空");
-                                  $("#feature-boxing-menu div label").css("color", "#000");
-                                  $("[for=boxing-label]").css("color", "red");
-
-                                  return false;
-                              }
-                              if (Value.no_default===""){
-                                  $("#boxing_warning").text("参数no_default不能为空");
-                                  $("#feature-boxing-menu div label").css("color", "#000");
-                                  $("[for=boxing-no_default]").css("color", "red");
-                                  return false;
-                              }
-                              if (Value.default===""){
-                                  $("#boxing_warning").text("参数default不能为空");
-                                  $("#feature-boxing-menu div label").css("color", "#000");
-                                  $("[for=boxing-default]").css("color", "red");
-                                  return false;
-                              }
-                              if (Value.bins===""){
-                                  $("#boxing_warning").text("参数bins不能为空");
-                                  $("#feature-boxing-menu div label").css("color", "#000");
-                                  $("[for=boxing-bins]").css("color", "red");
-                                  return false;
                               }
 
 
@@ -241,19 +233,19 @@ define([
 
                               var content = '# Feature Boxing\n'+
                                   'import feature as ft\n' +
-                                  'ft.split_box(dataframe=' +
-                                  Value.dataframe +
+                                  'ft.split_box(data=' +
+                                  Value.data +
                                   ',variable="' +
                                   Value.variable +
                                   '",label="' +
                                   Value.label +
                                   '",no_default=' +
                                   Value.no_default +
-                                  ',default="' +
+                                  ',default=' +
                                   Value.default +
-                                  '",bins="' +
+                                  ',bins=' +
                                   Value.bins +
-                                  '")';
+                                  ')';
 
                               now_cell.set_text(content);
 

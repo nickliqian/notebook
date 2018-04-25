@@ -149,26 +149,26 @@ define([
 
 
                               // 如果必选变量没有填写提交则无法提交
-                              if (Value.model===""){
-                                  $("#save_warning").text("参数model不能为空");
+                              if (Value.model==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.model)){
+                                  $("#save_warning").text("参数model不能为空，应为不以数字开头且包含数字、字母、下划线的变量字符串");
                                   $("#model-save-menu div label").css("color", "#000");
                                   $("[for=save-model]").css("color", "red");
                                   return false;
                               }
-                              if (Value.train===""){
-                                  $("#save_warning").text("参数train不能为空");
+                              if (Value.train==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.train)){
+                                  $("#save_warning").text("参数train不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
                                   $("#model-save-menu div label").css("color", "#000");
                                   $("[for=save-train]").css("color", "red");
                                   return false;
                               }
-                              if (Value.test===""){
-                                  $("#save_warning").text("参数test不能为空");
+                              if (Value.test==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.test)){
+                                  $("#save_warning").text("参数test不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
                                   $("#model-save-menu div label").css("color", "#000");
                                   $("[for=save-test]").css("color", "red");
                                   return false;
                               }
-                              if (Value.label===""){
-                                  $("#save_warning").text("参数label不能为空");
+                              if (Value.label==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.label)){
+                                  $("#save_warning").text("参数label不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
                                   $("#model-save-menu div label").css("color", "#000");
                                   $("[for=save-label]").css("color", "red");
                                   return false;
@@ -197,9 +197,9 @@ define([
 
                               var content = '# Model Save\n'+
                                   'import model as ml\n'+
-                                  'ml.save(model="' +
+                                  'ml.save(model=' +
                                   Value.model +
-                                  '",train="' +
+                                  ',train="' +
                                   Value.train +
                                   '",test="' +
                                   Value.test +

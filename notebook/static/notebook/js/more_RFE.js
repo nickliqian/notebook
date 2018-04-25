@@ -14,13 +14,13 @@ define([
           $('#RFE-menu').click(function () {
 
 
-              var form_dataframe = $('<div/>').addClass('form-group')
+              var form_data = $('<div/>').addClass('form-group')
                   .append(
                       $('<label/>').addClass('col-sm-2')
                           .addClass('control-label')
-                          .attr('for', 'RFE-dataframe')
+                          .attr('for', 'RFE-data')
                           .attr('title', '数据集名称，必填')
-                          .text('dataframe')
+                          .text('data')
                   ).append(
                       $('<div/>').addClass('col-sm-1')
                   ).append(
@@ -28,7 +28,7 @@ define([
                           .append(
                               $('<input/>').addClass('form-control')
                                   .addClass('input-sm')
-                                  .attr('id', 'RFE-dataframe')
+                                  .attr('id', 'RFE-data')
                                   .attr('type', 'text')
                                   .attr('placeholder', '数据集名称，必填')
                           )
@@ -90,7 +90,7 @@ define([
                                   .addClass('input-sm')
                                   .attr('id', 'RFE-feature')
                                   .attr('type', 'text')
-                                  .attr('placeholder', '特征变量序列，可选')
+                                  .attr('placeholder', '特征变量序列，可选，例如["a","b","c"]')
                           )
                   );
 
@@ -119,7 +119,7 @@ define([
 
               var form = $('<form/>').addClass('form-horizontal')
                   .attr('id', 'model-RFE-menu')
-                  .append(form_dataframe)
+                  .append(form_data)
                   .append(form_to_select)
                   .append(form_label)
                   .append(form_feature)
@@ -140,7 +140,7 @@ define([
                           class: "btn-primary",
                           click: function () {
                               var Value = {
-                                  "dataframe": $("#RFE-dataframe").val(),
+                                  "data": $("#RFE-data").val(),
                                   "to_select": $("#RFE-to_select").val(),
                                   "label": $("#RFE-label").val(),
                                   "feature": $("#RFE-feature").val() || "None",
@@ -148,30 +148,31 @@ define([
                                   "target": "RFE",
                               };
 
-                              if(!(/(^[1-9]\d*$)/.test(Value.to_select))){
-                                  $("#RFE_warning").text("参数to_select应为正整数");
-                                  $("#feature-RFE-menu div label").css("color", "#000");
+
+                              // 如果必选变量没有填写提交则无法提交
+                              if (Value.data==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.data)){
+                                  $("#RFE_warning").text("参数data不能为空，应为不以数字开头且包含数字、字母、下划线的变量字符串");
+                                  $("#model-RFE-menu div label").css("color", "#000");
+                                  $("[for=RFE-data]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.to_select==="" || !/^[0-9]+$/.test(Value.to_select)){
+                                  $("#RFE_warning").text("参数to_select不能为空，应为正整数");
+                                  $("#model-RFE-menu div label").css("color", "#000");
                                   $("[for=RFE-to_select]").css("color", "red");
+                                  return false;
+                              }
+                              if (Value.label==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.label)){
+                                  $("#RFE_warning").text("参数label不能为空，，应为不以数字开头且包含数字、字母、下划线的字符串");
+                                  $("#model-RFE-menu div label").css("color", "#000");
+                                  $("[for=RFE-label]").css("color", "red");
                                   return false;
                               }
 
-                              // 如果必选变量没有填写提交则无法提交
-                              if (Value.dataframe===""){
-                                  $("#RFE_warning").text("参数dataframe不能为空");
+                              if(!/".+"(,".+"){1,}/.test(Value.feature) && (Value.feature !== "None")){
+                                  $("#RFE_warning").text("参数feature可选，但应为至少两个元素的字符串序列");
                                   $("#model-RFE-menu div label").css("color", "#000");
-                                  $("[for=RFE-dataframe]").css("color", "red");
-                                  return false;
-                              }
-                              if (Value.to_select===""){
-                                  $("#RFE_warning").text("参数to_select不能为空");
-                                  $("#model-RFE-menu div label").css("color", "#000");
-                                  $("[for=RFE-to_select]").css("color", "red");
-                                  return false;
-                              }
-                              if (Value.label===""){
-                                  $("#RFE_warning").text("参数label不能为空");
-                                  $("#model-RFE-menu div label").css("color", "#000");
-                                  $("[for=RFE-label]").css("color", "red");
+                                  $("[for=RFE-feature]").css("color", "red");
                                   return false;
                               }
 
@@ -191,8 +192,8 @@ define([
 
                               var content = '# Model RFE\n'+
                                   'import model as ml\n'+
-                                  'ml.rfe_lr(dataframe=' +
-                                  Value.dataframe +
+                                  'ml.rfe_lr(data=' +
+                                  Value.data +
                                   ',to_select="' +
                                   Value.to_select +
                                   '",label="' +

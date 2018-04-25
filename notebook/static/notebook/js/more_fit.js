@@ -152,26 +152,27 @@ define([
 
 
                               // 如果必选变量没有填写提交则无法提交
-                              if (Value.train===""){
-                                  $("#fit_warning").text("参数train不能为空");
+                              if (Value.train==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.train)){
+                                  $("#fit_warning").text("参数train不能为空,，应为不以数字开头且包含数字、字母、下划线的字符串");
                                   $("#model-fit-menu div label").css("color", "#000");
                                   $("[for=fit-train]").css("color", "red");
                                   return false;
                               }
-                              if (Value.test===""){
-                                  $("#fit_warning").text("参数test不能为空");
+                              if (Value.test==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.test)){
+                                  $("#fit_warning").text("参数test不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
                                   $("#model-fit-menu div label").css("color", "#000");
                                   $("[for=fit-test]").css("color", "red");
                                   return false;
                               }
-                              if (Value.label===""){
-                                  $("#fit_warning").text("参数label不能为空");
+                              if (Value.label==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.label)){
+                                  $("#fit_warning").text("参数label不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
                                   $("#model-fit-menu div label").css("color", "#000");
                                   $("[for=fit-label]").css("color", "red");
                                   return false;
                               }
+                              // 判断路径
                               if (Value.path===""){
-                                  $("#fit_warning").text("参数path不能为空");
+                                  $("#fit_warning").text("参数path不能为空，应为可读的路径");
                                   $("#model-fit-menu div label").css("color", "#000");
                                   $("[for=fit-path]").css("color", "red");
                                   return false;
