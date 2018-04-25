@@ -194,9 +194,9 @@ define([
                                   'import model as ml\n'+
                                   'ml.rfe_lr(data=' +
                                   Value.data +
-                                  ',to_select="' +
+                                  ',to_select=' +
                                   Value.to_select +
-                                  '",label="' +
+                                  ',label="' +
                                   Value.label +
                                   '",feature=' +
                                   Value.feature +

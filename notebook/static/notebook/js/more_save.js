@@ -199,11 +199,11 @@ define([
                                   'import model as ml\n'+
                                   'ml.save(model=' +
                                   Value.model +
-                                  ',train="' +
+                                  ',train=' +
                                   Value.train +
-                                  '",test="' +
+                                  ',test=' +
                                   Value.test +
-                                  '",label="' +
+                                  ',label="' +
                                   Value.label +
                                   '",path="' +
                                   Value.path +

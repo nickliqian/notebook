@@ -113,7 +113,7 @@ define([
                                   .addClass('input-sm')
                                   .attr('id', 'fit-path')
                                   .attr('type', 'text')
-                                  .attr('placeholder', '上一个版本的模型结果文件路径，必填')
+                                  .attr('placeholder', '上一个版本的模型结果文件路径，选填')
                           )
                   );
 
@@ -153,13 +153,13 @@ define([
 
                               // 如果必选变量没有填写提交则无法提交
                               if (Value.train==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.train)){
-                                  $("#fit_warning").text("参数train不能为空,，应为不以数字开头且包含数字、字母、下划线的字符串");
+                                  $("#fit_warning").text("参数train不能为空,，应为不以数字开头且包含数字、字母、下划线的变量");
                                   $("#model-fit-menu div label").css("color", "#000");
                                   $("[for=fit-train]").css("color", "red");
                                   return false;
                               }
                               if (Value.test==="" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.test)){
-                                  $("#fit_warning").text("参数test不能为空，应为不以数字开头且包含数字、字母、下划线的字符串");
+                                  $("#fit_warning").text("参数test不能为空，应为不以数字开头且包含数字、字母、下划线的变量");
                                   $("#model-fit-menu div label").css("color", "#000");
                                   $("[for=fit-test]").css("color", "red");
                                   return false;
@@ -171,12 +171,12 @@ define([
                                   return false;
                               }
                               // 判断路径
-                              if (Value.path===""){
-                                  $("#fit_warning").text("参数path不能为空，应为可读的路径");
-                                  $("#model-fit-menu div label").css("color", "#000");
-                                  $("[for=fit-path]").css("color", "red");
-                                  return false;
-                              }
+                              // if (Value.path===""){
+                              //     $("#fit_warning").text("参数path不能为空，应为可读的路径");
+                              //     $("#model-fit-menu div label").css("color", "#000");
+                              //     $("[for=fit-path]").css("color", "red");
+                              //     return false;
+                              // }
 
                               // 获取当前行的状态，是否有内容
                               var before_cell = notebook.get_selected_cell();
@@ -194,11 +194,11 @@ define([
 
                               var content = '# Model Fit\n'+
                                   'import model as ml\n'+
-                                  'ml.fit(train="' +
+                                  'ml.fit(train=' +
                                   Value.train +
-                                  '",test="' +
+                                  ',test=' +
                                   Value.test +
-                                  '",label="' +
+                                  ',label="' +
                                   Value.label +
                                   '",algo="' +
                                   Value.algo +
