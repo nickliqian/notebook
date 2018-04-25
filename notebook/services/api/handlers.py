@@ -49,6 +49,7 @@ class APIStatusHandler(APIHandler):
         self.finish(json.dumps(model, sort_keys=True))
 
 
+# discard this class
 class APIImportParamsToFile(APIHandler):
 
     @web.authenticated
@@ -242,5 +243,5 @@ class APIImportParamsToFile(APIHandler):
 default_handlers = [
     (r"/api/spec.yaml", APISpecHandler),
     (r"/api/status", APIStatusHandler),
-    (r"/api/importDefault", APIImportParamsToFile),
+    # (r"/api/importDefault", APIImportParamsToFile),
 ]
