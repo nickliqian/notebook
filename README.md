@@ -61,5 +61,8 @@ If you are interested in contributing to the project, see [`CONTRIBUTING.rst`](C
 - [Technical support - Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter)
 
 ## dev mode command
-`sudo npm run build:watch`
-`jupyter notebook --debug --no-browser`
+`sudo npm run build:watch`  
+`jupyter notebook --debug --no-browser`  
+[启动ipython或python解释器自动导入组件（例如：numpy）](https://blog.csdn.net/xlinsist/article/details/51168892)  
+`.ipython\profile_default\startup` 在这个路径里面放置文件，加载内核的时候会主动执行。  
+`.jupyter\\jupyter_notebook_config.py` 此文件是`jupyter notebook`的配置文件

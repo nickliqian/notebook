@@ -136,20 +136,19 @@ define([
 
 
                                     var item_data = items[Value.data_source];  // 数据源相关信息
-                                    var con_params = JSON.parse(item_data.connParams);  // 连接信息
-
-                                    var host = /sqlserver:\/\/(.*?):/.exec(con_params.url)[1];
-                                    var port = /:\/\/.*?:(.*?);database/.exec(con_params.url)[1];
-                                    var username = con_params.user;
-                                    var password = con_params.password;
-                                    var database = /database=(.*?)$/.exec(con_params.url)[1];
-                                    var tablename = item_data.tableName;
+                                    var category = item_data.category;
+                                    console.log(1, category);
+                                    // var con_params = JSON.parse(item_data.connParams);  // 连接信息
+                                    //
+                                    // var host = /sqlserver:\/\/(.*?):/.exec(con_params.url)[1];
+                                    // var port = /:\/\/.*?:(.*?);database/.exec(con_params.url)[1];
+                                    // var username = con_params.user;
+                                    // var password = con_params.password;
+                                    // var database = /database=(.*?)$/.exec(con_params.url)[1];
+                                    // var tablename = item_data.tableName;
 
                                     var content = '# load dataset\n' +
-                                        'import pymssql\n' +
-                                        'conn = pymssql.connect(host="' + host + '", port=' + port + ' ,user="' + username + '", password="' + password + '", database="' + database + '")\n' +
-                                        '' + Value.variable + ' = pd.read_sql("select * from ' + tablename + '",con=conn)\n' +
-                                        'conn.close()\n';
+                                                   Value.variable + '=test(' + Value.data_source + ')\n';
 
                                     // 获取当前行的状态，是否有内容
                                     var before_cell = notebook.get_selected_cell();

@@ -248,30 +248,42 @@ class DataSetList(APIHandler):
     def get(self):
         import requests
 
-        url = "http://192.168.10.204:8092/cubo//dsList"
+        if True:
+            result = {
+                "list": [
+                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
+                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
+                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
+                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
+                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}}
+                ]
+            }
+            self.write(result)
+        else:
+            url = "http://192.168.10.204:8092/cubo//dsList"
 
-        payload = "order=desc&offset=0&limit=14"
-        headers = {
-            'Accept': "application/json, text/javascript, */*; q=0.01",
-            'Accept-Encoding': "gzip, deflate",
-            'Accept-Language': "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-            'Cache-Control': "no-cache",
-            'Connection': "keep-alive",
-            'Content-Length': "28",
-            'Content-Type': "application/x-www-form-urlencoded",
-            # 'Cookie': "__utma=259493322.4655584.1543483850.1543483850.1543483850.1; __utmz=259493322.1543483850.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); JSESSIONID=E1DD63431A673901E41AC18C1BFC9A08; shiroCookie=f4b16d3f-3fb4-4bb9-a87e-7f7604a2d7fa",
-            'Host': "192.168.10.204:8092",
-            'Origin': "http://192.168.10.204:8092",
-            'Pragma': "no-cache",
-            'Referer': "http://192.168.10.204:8092/cubo/ds",
-            'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36",
-            'X-Requested-With': "XMLHttpRequest",
-            'Postman-Token': "7b235144-e7e6-4f7d-9fba-6afe88c0c16c"
-        }
+            payload = "order=desc&offset=0&limit=14"
+            headers = {
+                'Accept': "application/json, text/javascript, */*; q=0.01",
+                'Accept-Encoding': "gzip, deflate",
+                'Accept-Language': "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
+                'Cache-Control': "no-cache",
+                'Connection': "keep-alive",
+                'Content-Length': "28",
+                'Content-Type': "application/x-www-form-urlencoded",
+                # 'Cookie': "__utma=259493322.4655584.1543483850.1543483850.1543483850.1; __utmz=259493322.1543483850.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); JSESSIONID=E1DD63431A673901E41AC18C1BFC9A08; shiroCookie=f4b16d3f-3fb4-4bb9-a87e-7f7604a2d7fa",
+                'Host': "192.168.10.204:8092",
+                'Origin': "http://192.168.10.204:8092",
+                'Pragma': "no-cache",
+                'Referer': "http://192.168.10.204:8092/cubo/ds",
+                'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36",
+                'X-Requested-With': "XMLHttpRequest",
+                'Postman-Token': "7b235144-e7e6-4f7d-9fba-6afe88c0c16c"
+            }
 
-        response = requests.request("POST", url, data=payload, headers=headers, timeout=60)
+            response = requests.request("POST", url, data=payload, headers=headers, timeout=60)
 
-        self.write(response.json())
+            self.write(response.json())
 
 
 # CHANGE: Add new api...
