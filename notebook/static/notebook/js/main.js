@@ -48,6 +48,7 @@ requirejs([
     'notebook/js/more_RFE',
     'notebook/js/more_fit',
     'notebook/js/more_save',
+    'notebook/js/more_loaddataset',
     'notebook/js/searchandreplace',
     'notebook/js/clipboard',
     'bidi/bidi'
@@ -79,6 +80,7 @@ requirejs([
     more_RFE,
     more_fit,
     more_save,
+    more_loaddataset,
     searchandreplace,
     clipboard,
     bidi
@@ -178,6 +180,7 @@ requirejs([
     more_RFE.load(keyboard_manager, notebook);
     more_fit.load(keyboard_manager, notebook);
     more_save.load(keyboard_manager, notebook);
+    more_loaddataset.load(keyboard_manager, notebook);
 
     $('body').append('<div id="fonttest"><pre><span id="test1">x</span>'+
                      '<span id="test2" style="font-weight: bold;">x</span>'+
