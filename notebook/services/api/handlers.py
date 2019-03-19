@@ -248,7 +248,7 @@ class DataSetList(APIHandler):
     def get(self):
         import requests
 
-        if True:
+        if False:
             result = {
                 "list": [
                     {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},

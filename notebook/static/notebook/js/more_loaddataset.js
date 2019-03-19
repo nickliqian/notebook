@@ -119,11 +119,11 @@ define([
                                     var Value = {
                                         "variable": $("#variable-load-dataset").val(),
                                         "data_source": $("input[name='radioSource']:checked").val(),
-                                        "target": "save",
+                                        "target": "load",
                                     };
 
                                     // 如果必选变量没有填写提交则无法提交
-                                    if (Value.variable === "" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.model)) {
+                                    if (Value.variable === "" || !/^[a-zA-Z_][0-9a-zA-Z_]*$/.test(Value.variable)) {
                                         $("#load_warning").text("参数data_source不能为空，应为不以数字开头且包含数字、字母、下划线的变量字符串");
                                         $("#dataset-load-menu div label").css("color", "#000");
                                         $("[for=variable-load-dataset]").css("color", "red");
@@ -134,21 +134,11 @@ define([
                                         return false;
                                     }
 
-
                                     var item_data = items[Value.data_source];  // 数据源相关信息
-                                    var category = item_data.category;
-                                    console.log(1, category);
-                                    // var con_params = JSON.parse(item_data.connParams);  // 连接信息
-                                    //
-                                    // var host = /sqlserver:\/\/(.*?):/.exec(con_params.url)[1];
-                                    // var port = /:\/\/.*?:(.*?);database/.exec(con_params.url)[1];
-                                    // var username = con_params.user;
-                                    // var password = con_params.password;
-                                    // var database = /database=(.*?)$/.exec(con_params.url)[1];
-                                    // var tablename = item_data.tableName;
+                                    var source_id = item_data.sourceId;
 
                                     var content = '# load dataset\n' +
-                                                   Value.variable + '=test(' + Value.data_source + ')\n';
+                                        Value.variable + '=load_data_set(' + source_id + ')\n';
 
                                     // 获取当前行的状态，是否有内容
                                     var before_cell = notebook.get_selected_cell();
@@ -167,6 +157,8 @@ define([
                                     now_cell.set_text(content);
                                     notebook.execute_cell_and_select_below();
                                     notebook.save_checkpoint();
+                                    notebook.select_next(true);
+                                    notebook.focus_cell();
                                 }
                             }
                         }

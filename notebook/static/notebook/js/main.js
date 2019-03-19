@@ -49,6 +49,11 @@ requirejs([
     'notebook/js/more_fit',
     'notebook/js/more_save',
     'notebook/js/more_loaddataset',
+    'notebook/js/more_drawbar',
+    'notebook/js/more_drawbox',
+    'notebook/js/more_drawlines',
+    'notebook/js/more_drawpoints',
+    'notebook/js/more_drawhist',
     'notebook/js/searchandreplace',
     'notebook/js/clipboard',
     'bidi/bidi'
@@ -81,6 +86,11 @@ requirejs([
     more_fit,
     more_save,
     more_loaddataset,
+    more_drawbar,
+    more_drawbox,
+    more_drawlines,
+    more_drawpoints,
+    more_drawhist,
     searchandreplace,
     clipboard,
     bidi
@@ -181,6 +191,11 @@ requirejs([
     more_fit.load(keyboard_manager, notebook);
     more_save.load(keyboard_manager, notebook);
     more_loaddataset.load(keyboard_manager, notebook);
+    more_drawbar.load(keyboard_manager, notebook);
+    more_drawbox.load(keyboard_manager, notebook);
+    more_drawlines.load(keyboard_manager, notebook);
+    more_drawpoints.load(keyboard_manager, notebook);
+    more_drawhist.load(keyboard_manager, notebook);
 
     $('body').append('<div id="fonttest"><pre><span id="test1">x</span>'+
                      '<span id="test2" style="font-weight: bold;">x</span>'+
@@ -257,5 +272,33 @@ requirejs([
     // END HARDCODED WIDGETS HACK
 
     notebook.load_notebook(common_options.notebook_path);
+
+    // CHANGE
+    String.prototype.format = function (args) {
+        if (arguments.length > 0) {
+            var result = this;
+            if (arguments.length == 1 && typeof (args) == "object") {
+                for (var key in args) {
+                    var reg = new RegExp("({" + key + "})", "g");
+                    result = result.replace(reg, args[key]);
+                }
+            }
+            else {
+                for (var i = 0; i < arguments.length; i++) {
+                    if (arguments[i] == undefined) {
+                        return "";
+                    }
+                    else {
+                        var reg = new RegExp("({[" + i + "]})", "g");
+                        result = result.replace(reg, arguments[i]);
+                    }
+                }
+            }
+            return result;
+        }
+        else {
+            return this;
+        }
+    }
 
 });
