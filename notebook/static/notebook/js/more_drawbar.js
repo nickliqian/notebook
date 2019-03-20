@@ -38,7 +38,7 @@ define([
                     $('<label/>').addClass('col-sm-2')
                         .addClass('control-label')
                         .attr('for', 'draw_bar_x_field')
-                        .attr('title', 'x字段名称，必填')
+                        .attr('title', 'x字段名称，留空表示使用索引')
                         .text('x')
                 ).append(
                     $('<div/>').addClass('col-sm-1')
@@ -49,7 +49,7 @@ define([
                                 .addClass('input-sm')
                                 .attr('id', 'draw_bar_x_field')
                                 .attr('type', 'text')
-                                .attr('placeholder', 'x字段名称，必填')
+                                .attr('placeholder', 'x字段名称，留空表示使用索引')
                         )
                 );
             var form_y_field = $('<div/>').addClass('form-group')

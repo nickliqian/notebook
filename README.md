@@ -66,3 +66,29 @@ If you are interested in contributing to the project, see [`CONTRIBUTING.rst`](C
 [启动ipython或python解释器自动导入组件（例如：numpy）](https://blog.csdn.net/xlinsist/article/details/51168892)  
 `.ipython\profile_default\startup` 在这个路径里面放置文件，加载内核的时候会主动执行。  
 `.jupyter\\jupyter_notebook_config.py` 此文件是`jupyter notebook`的配置文件
+`jupyter notebook --generate-config`
+```
+从 jupyter notebook 5.0 版本开始，提供了一个命令来设置密码：jupyter notebook password，生成的密码存储在 jupyter_notebook_config.json。
+$ jupyter notebook password
+Enter password:  **** 111111
+Verify password: **** 111111
+[NotebookPasswordApp] Wrote hashed password to /Users/you/.jupyter/jupyter_notebook_config.json
+```
+```
+c.NotebookApp.ip='*'#163行
+c.NotebookApp.password = u'sha:ce...刚才复制的那个密文'  #217行
+c.NotebookApp.open_browser = False#208
+c.NotebookApp.port =8888 #可自行指定一个端口, 访问时使用该端口228行
+```
+
+# install
+`pip install requests pandas matplotlib pymysql mssql`  
+`pip instal .`  
+
+读取partuet文件时会遇到依赖问题，需要安装python-snappy，依赖如下：
+```
+DEB-based: sudo apt-get install libsnappy-dev
+RPM-based: sudo yum install libsnappy-devel
+Brew:  brew install snappy
+# https://stackoverflow.com/questions/11416024/error-installing-python-snappy-snappy-c-h-no-such-file-or-directory
+```

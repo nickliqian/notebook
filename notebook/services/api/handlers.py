@@ -260,9 +260,9 @@ class DataSetList(APIHandler):
             }
             self.write(result)
         else:
-            url = "http://192.168.10.204:8092/cubo//dsList"
+            url = "http://192.168.10.203:8092/cubo//dsList"
 
-            payload = "order=desc&offset=0&limit=14"
+            payload = "order=desc&offset=0&limit=50"
             headers = {
                 'Accept': "application/json, text/javascript, */*; q=0.01",
                 'Accept-Encoding': "gzip, deflate",

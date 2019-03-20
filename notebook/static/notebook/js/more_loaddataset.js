@@ -14,17 +14,6 @@ define([
     var load = function (keyboard_manager, notebook) {
         $('#load-dataset').click(function () {
 
-            // var result = function (success, error) {
-            //     utils.ajax("http://127.0.0.1:8888/api/dataset_list", {
-            //         processData: false,
-            //         cache: false,
-            //         type: "GET",
-            //         dataType: "json",
-            //         success: success,
-            //         error: error,
-            //     });
-            // };
-
             var result = {};
             $.ajax({
                 type: 'GET',
@@ -96,9 +85,52 @@ define([
                                 )
                         );
 
+                    var form_select = $('<select style="text-align:center;vertical-align:middle;padding:5px;"/>');
+                    var type_list = ["ALL", "File", "MySQL", "Hbase", "sqlserver", "hive", "kafka", "neo4j"];
+                    for (var i = 0; i < type_list.length; i++) {
+                        form_select.append(
+                            $("<option/>").val(type_list[i]).text(type_list[i])
+                        )
+                    }
+
+                    var form_search = $('<div/>').addClass('form-group')
+                        .append(
+                            $('<label/>').addClass('col-sm-2')
+                                .addClass('control-label')
+                                .attr('for', 'variable-load-dataset')
+                                .attr('title', '按数据源名称进行搜索')
+                                .text('search')
+                        ).append(
+                            $('<div/>').addClass('col-sm-1')
+                        ).append(
+                            $('<div/>').addClass('col-sm-4')
+                                .append(
+                                    $('<input/>').addClass('form-control')
+                                        .addClass('input-sm')
+                                        .attr('id', 'variable-load-dataset')
+                                        .attr('type', 'text')
+                                        .attr('placeholder', '按数据源名称进行搜索')
+                                )
+                        ).append(
+                            $('<div/>').addClass('col-sm-1')
+                        ).append(
+                            $('<div/>').addClass('col-sm-1')
+                                .append(form_select)
+                        ).append(
+                            $('<div/>').addClass('col-sm-1')
+                        ).append(
+                            $('<div/>').addClass('col-sm-1').attr('id', 'dataset-search-button')
+                                .append(
+                                    $('<button/>')
+                                        .addClass("btn btn-default btn-sm btn-primary")
+                                        .text("Search")
+                                )
+                        );
+
                     var form = $('<form/>').addClass('form-horizontal')
                         .attr('id', 'dataset-load-menu')
                         .append(form_variable)
+                        // .append(form_search)
                         .append(form_data_choose)
                         .append(
                             $('<div/>').attr("id", "load_warning")
@@ -107,6 +139,9 @@ define([
                                 .css("padding-bottom", "5px")
                         );
 
+                    // $('#dataset-search-button').click(function () {
+                    //     console.log("test search");
+                    // });
 
                     dialog.modal({
                         title: i18n.msg._('load'),
@@ -137,8 +172,10 @@ define([
                                     var item_data = items[Value.data_source];  // 数据源相关信息
                                     var source_id = item_data.sourceId;
 
-                                    var content = '# load dataset\n' +
-                                        Value.variable + '=load_data_set(' + source_id + ')\n';
+                                    var content, content1, content2;
+                                    content1 = '# load dataset\n';
+                                    content2 = '{0}=sjs_load_data.load_data_set({1})\n'.format(Value.variable, source_id);
+                                    content = content1 + content2;
 
                                     // 获取当前行的状态，是否有内容
                                     var before_cell = notebook.get_selected_cell();
@@ -168,7 +205,6 @@ define([
                 },
                 dataType: "json"
             });
-
 
         });
     };
