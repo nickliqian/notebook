@@ -133,7 +133,7 @@ define([
                                 content = content_1 + content_2
                             } else {
                                 content_1 = '# Draw Bar\n';
-                                content_2 = 'draw_bar({0},x_field="{1}",y_field="{2}")\n'.format(Value.variable,Value.x_field,Value.y_field);
+                                content_2 = 'sjs_load_data.draw_bar({0},x_field="{1}",y_field="{2}")\n'.format(Value.variable,Value.x_field,Value.y_field);
                                 content = content_1 + content_2
                             }
 

@@ -172,10 +172,12 @@ define([
                                     var item_data = items[Value.data_source];  // 数据源相关信息
                                     var source_id = item_data.sourceId;
 
-                                    var content, content1, content2;
+                                    var content, content1, content2, content3;
                                     content1 = '# load dataset\n';
                                     content2 = '{0}=sjs_load_data.load_data_set({1})\n'.format(Value.variable, source_id);
-                                    content = content1 + content2;
+                                    content3 = '{0}\n'.format(Value.variable);
+                                    content = content1 + content2 + content3;
+                                    console.log(content);
 
                                     // 获取当前行的状态，是否有内容
                                     var before_cell = notebook.get_selected_cell();

@@ -5,3 +5,22 @@ a hack to deal with our current css styles and no new styling should be added in
 #ipython-main-app {
     position: relative;
 }
+
+span.save_widget span.filename {
+    margin-left: 3px;
+    text-decoration:underline;
+    color: #0b3e6f;
+}
+
+span.save_widget #file_name_span {
+    font-size: 146.5%;
+}
+
+.return2tree {
+    font-size: 146.5%;
+    margin-right: 28px;
+}
+
+span.save_widget #filename_postfix {
+    margin-right: 10px;
+}

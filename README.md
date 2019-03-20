@@ -83,7 +83,7 @@ c.NotebookApp.port =8888 #可自行指定一个端口, 访问时使用该端口2
 
 # install
 `pip install requests pandas matplotlib pymysql mssql`  
-`pip instal .`  
+`git pull; pip instal .`  
 
 读取partuet文件时会遇到依赖问题，需要安装python-snappy，依赖如下：
 ```
@@ -91,4 +91,11 @@ DEB-based: sudo apt-get install libsnappy-dev
 RPM-based: sudo yum install libsnappy-devel
 Brew:  brew install snappy
 # https://stackoverflow.com/questions/11416024/error-installing-python-snappy-snappy-c-h-no-such-file-or-directory
+```
+
+# run
+```
+cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/;
+npm run build;
+jupyter notebook
 ```

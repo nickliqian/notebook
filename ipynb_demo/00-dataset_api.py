@@ -22,14 +22,13 @@ class SJSLoadData(object):
 
     @staticmethod
     def test(name):
-        print(name)
-        print("hahahah")
+        print("[INFO] Test print name:{}".format(name))
 
     def load_data_set(self, source_id):
         # 获取指定数据源的详细信息
         config_data = self.get_source_detail(source_id)
         data_type = config_data["category"]
-        print("data_type:{} source_id:{}".format(data_type, source_id))
+        print("[INFO] Data Type:<{}> Source Id:<{}>".format(data_type, source_id))
 
         df = None
         # 全部转为小写来识别
@@ -49,13 +48,13 @@ class SJSLoadData(object):
         elif data_type == "neo4j":
             pass
         else:
-            print("警告：请输入正确的数据源类型")
+            print("[WARNING]: 请输入正确的数据源类型")
             return
         return df
 
     @staticmethod
     def get_source_detail(source_id):
-        print("get <source_id:{}> source connection info".format(source_id))
+        print("[INFO] Get Source Id:<{}> for data source connection info".format(source_id))
         url = "http://192.168.10.58:8092/cubo/source/get/{}".format(source_id)
         response = requests.get(url=url, timeout=8)
         config_data = response.json()
@@ -91,7 +90,7 @@ class SJSLoadData(object):
             pf = ParquetFile(BufferedReader(BytesIO(result)))
             df = pf.to_pandas()
         else:
-            print("警告：请输入正确的文件类型")
+            print("[WARNING]: 请输入正确的文件类型")
             return
         return df
 
@@ -108,11 +107,11 @@ class SJSLoadData(object):
         db_name = re.findall(r"://.*?:.*?/(.*?)\?", conn_url)[0]
         table_name = config_data["tableName"]
         # 链接数据源
-        print(host, port, username, password, db_name, table_name)
+        print("[INFO] Config: host:{}, port:{}, username:{}, password:{}, db_name:{}, table_name:{}"
+              .format(host, port, username, password, db_name, table_name))
         conn = pymysql.connect(host=host, port=port, user=username, passwd=password, db=db_name)
         df = pd.read_sql('select * from {}'.format(table_name), con=conn)
         conn.close()
-        print(df)
         return df
 
     @staticmethod
@@ -132,7 +131,8 @@ class SJSLoadData(object):
         db_name = re.findall(r"database=(.*?)$", conn_url)[0]
         table_name = config_data["tableName"]
         # 链接数据源
-        print(host, port, username, password, db_name, table_name)
+        print("[INFO] Config: host:{}, port:{}, username:{}, password:{}, db_name:{}, table_name:{}"
+              .format(host, port, username, password, db_name, table_name))
         conn = pymssql.connect(host=host, port=port, user=username, password=password, database=db_name)
         df = pd.read_sql('select * from {}'.format(table_name), con=conn)
         conn.close()

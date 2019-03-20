@@ -43,7 +43,9 @@
 
 
     <span id="save_widget" class="save_widget">
-    <span id="notebook_name" class="filename"></span>
+    <a class="return2tree" title="返回上一层" href="{{default_url}}"><i class="fa-arrow-left fa"></i></a>
+    <span id="file_name_span" title="点击修改名称">Name: </span>
+    <span id="notebook_name" class="filename"></span><span id="filename_postfix">.ipynb</span>
     <span class="checkpoint_status"></span>
     <span class="autosave_status"></span>
 </span>
@@ -336,39 +338,39 @@
                             </li>
 
                             {# CHANGE: 新增菜单×××××××××××××××××××××× #}
-                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}
-                                Feature&Model{% endtrans %}</a>
-                                <ul id="FM-menu" class="dropdown-menu">
-                                    <li id="Feature-menu" class="dropdown-submenu"
-                                        title="{% trans %}Select feature engineering method{% endtrans %}">
-                                        <a href="#">{% trans %}Feature{% endtrans %}</a>
-                                        <ul class="dropdown-menu">
-                                            <li id="boxing-menu" data-toggle="modal" data-target="#boxing-modal"
-                                                title="{% trans %}Key the boxing parameter{% endtrans %}">
-                                                <a href="#">Boxing</a></li>
-                                            <li id="split-menu" data-toggle="modal" data-target="#split-modal"
-                                                title="{% trans %}Split dataset by your settings{% endtrans %}">
-                                                <a href="#">{% trans %}Split{% endtrans %}</a></li>
-                                        </ul>
-                                    </li>
-
-                                    <li id="Model-menu" class="dropdown-submenu"
-                                        title="{% trans %}Custom dataset model{% endtrans %}">
-                                        <a href="#">{% trans %}Model{% endtrans %}</a>
-                                        <ul class="dropdown-menu">
-                                            <li id="RFE-menu"
-                                                title="{% trans %}Use REF{% endtrans %}">
-                                                <a href="#">RFE</a></li>
-                                            <li id="fit-menu"
-                                                title="{% trans %}Fit dataset{% endtrans %}">
-                                                <a href="#">{% trans %}Fit{% endtrans %}</a></li>
-                                            <li id="save-menu"
-                                                title="{% trans %}Save your model{% endtrans %}">
-                                                <a href="#">{% trans %}Save{% endtrans %}</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+{#                            <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans %}#}
+{#                                Feature&Model{% endtrans %}</a>#}
+{#                                <ul id="FM-menu" class="dropdown-menu">#}
+{#                                    <li id="Feature-menu" class="dropdown-submenu"#}
+{#                                        title="{% trans %}Select feature engineering method{% endtrans %}">#}
+{#                                        <a href="#">{% trans %}Feature{% endtrans %}</a>#}
+{#                                        <ul class="dropdown-menu">#}
+{#                                            <li id="boxing-menu" data-toggle="modal" data-target="#boxing-modal"#}
+{#                                                title="{% trans %}Key the boxing parameter{% endtrans %}">#}
+{#                                                <a href="#">Boxing</a></li>#}
+{#                                            <li id="split-menu" data-toggle="modal" data-target="#split-modal"#}
+{#                                                title="{% trans %}Split dataset by your settings{% endtrans %}">#}
+{#                                                <a href="#">{% trans %}Split{% endtrans %}</a></li>#}
+{#                                        </ul>#}
+{#                                    </li>#}
+{##}
+{#                                    <li id="Model-menu" class="dropdown-submenu"#}
+{#                                        title="{% trans %}Custom dataset model{% endtrans %}">#}
+{#                                        <a href="#">{% trans %}Model{% endtrans %}</a>#}
+{#                                        <ul class="dropdown-menu">#}
+{#                                            <li id="RFE-menu"#}
+{#                                                title="{% trans %}Use REF{% endtrans %}">#}
+{#                                                <a href="#">RFE</a></li>#}
+{#                                            <li id="fit-menu"#}
+{#                                                title="{% trans %}Fit dataset{% endtrans %}">#}
+{#                                                <a href="#">{% trans %}Fit{% endtrans %}</a></li>#}
+{#                                            <li id="save-menu"#}
+{#                                                title="{% trans %}Save your model{% endtrans %}">#}
+{#                                                <a href="#">{% trans %}Save{% endtrans %}</a></li>#}
+{#                                        </ul>#}
+{#                                    </li>#}
+{#                                </ul>#}
+{#                            </li>#}
                             {# CHANGE: 新增菜单^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ #}
 
                             {# CHANGE: 新增菜单×××××××××××××××××××××× #}
@@ -383,19 +385,19 @@
                                         <a href="#">{% trans %}Draw{% endtrans %}</a>
                                         <ul class="dropdown-menu">
                                             <li id="draw-bar-menu" title="{% trans %}draw bar{% endtrans %}">
-                                                <a href="#">条形图</a>
+                                                <a href="#">Bar</a>
                                             </li>
                                             <li id="draw-box-menu" title="{% trans %}draw box{% endtrans %}">
-                                                <a href="#">箱图</a>
+                                                <a href="#">Box</a>
                                             </li>
                                             <li id="draw-points-menu" title="{% trans %}draw points{% endtrans %}">
-                                                <a href="#">散点图</a>
+                                                <a href="#">Points</a>
                                             </li>
                                             <li id="draw-lines-menu" title="{% trans %}draw lines{% endtrans %}">
-                                                <a href="#">折线图</a>
+                                                <a href="#">Lines</a>
                                             </li>
                                             <li id="draw-hist-menu" title="{% trans %}draw hist{% endtrans %}">
-                                                <a href="#">直方图</a>
+                                                <a href="#">Hist</a>
                                             </li>
                                         </ul>
                                     </li>

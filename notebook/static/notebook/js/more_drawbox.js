@@ -98,7 +98,7 @@ define([
                             var content, content_1, content_2;
 
                             content_1 = '# Draw Box\n';
-                            content_2 = 'draw_box({0},value_field="{1}")\n'.format(Value.variable,Value.y_field);
+                            content_2 = 'sjs_load_data.draw_box({0},value_field="{1}")\n'.format(Value.variable,Value.y_field);
                             content = content_1 + content_2;
 
                             // 获取当前行的状态，是否有内容
