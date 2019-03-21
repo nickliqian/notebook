@@ -14,7 +14,6 @@ from notebook._tz import utcfromtimestamp, isoformat
 import os
 import requests
 
-import sjs_env
 
 
 class APISpecHandler(web.StaticFileHandler, IPythonHandler):
@@ -262,7 +261,7 @@ class DataSetList(APIHandler):
             }
             self.write(result)
         else:
-            url = "{}/cubo//dsList".format(sjs_env.cubo)
+            url = "{}/cubo//dsList".format(os.getenv("cubo_api"))
 
             payload = "order=desc&offset=0&limit=50"
             headers = {
@@ -273,7 +272,6 @@ class DataSetList(APIHandler):
                 'Connection': "keep-alive",
                 'Content-Length': "28",
                 'Content-Type': "application/x-www-form-urlencoded",
-                # 'Cookie': "__utma=259493322.4655584.1543483850.1543483850.1543483850.1; __utmz=259493322.1543483850.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); JSESSIONID=E1DD63431A673901E41AC18C1BFC9A08; shiroCookie=f4b16d3f-3fb4-4bb9-a87e-7f7604a2d7fa",
                 'Host': "192.168.10.204:8092",
                 'Origin': "http://192.168.10.204:8092",
                 'Pragma': "no-cache",

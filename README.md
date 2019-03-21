@@ -104,9 +104,11 @@ jupyter notebook
 git clone http://192.168.10.202:666/nickliqian/notebook_dataset.git
 cd notebook_dataset
 pip install -r requirements.txt
+git pull;
 cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/;
 cp ipynb_demo/jupyter_notebook_config.py ~/.jupyter/;
 python setup.py build;
 npm run build;
 pip install .;
+export cubo_api="http:192.168.10.203:8092"
 jupyter notebook;
