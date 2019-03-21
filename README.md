@@ -99,3 +99,14 @@ cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/;
 npm run build;
 jupyter notebook
 ```
+
+# start.sh
+git clone http://192.168.10.202:666/nickliqian/notebook_dataset.git
+cd notebook_dataset
+pip install -r requirements.txt
+cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/;
+cp ipynb_demo/jupyter_notebook_config.py ~/.jupyter/;
+python setup.py build;
+npm run build;
+pip install .;
+jupyter notebook;

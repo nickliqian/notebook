@@ -27,7 +27,7 @@ matplotlib==3.0.3
 mistune==0.8.3
 nbconvert==5.3.1
 nbformat==4.4.0
--e git+git@github.com:nickliqian/notebook.git@fc0be6e0cae5ef58d0961e7fa1b5999e27e76406#egg=notebook
+# -e git+git@github.com:nickliqian/notebook.git@fc0be6e0cae5ef58d0961e7fa1b5999e27e76406#egg=notebook
 numba==0.43.0
 numpy==1.16.2
 pandas==0.24.2
@@ -42,7 +42,7 @@ pyparsing==2.3.1
 pytest-runner==4.4
 python-dateutil==2.7.2
 pytz==2018.9
-pywinpty==0.5.1
+# pywinpty==0.5.1
 pyzmq==17.0.0
 requests==2.21.0
 scipy==1.2.1

@@ -14,6 +14,8 @@ from notebook._tz import utcfromtimestamp, isoformat
 import os
 import requests
 
+import sjs_env
+
 
 class APISpecHandler(web.StaticFileHandler, IPythonHandler):
 
@@ -260,7 +262,7 @@ class DataSetList(APIHandler):
             }
             self.write(result)
         else:
-            url = "http://192.168.10.58:8092/cubo//dsList"
+            url = "{}/cubo//dsList".format(sjs_env.cubo)
 
             payload = "order=desc&offset=0&limit=50"
             headers = {
