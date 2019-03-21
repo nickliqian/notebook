@@ -31,9 +31,11 @@ define([
                         $('<th style="text-align:center;vertical-align:middle;padding:5px;"/>').text("数据源类别")
                     ).append(
                         $('<th style="text-align:center;vertical-align:middle;padding:5px;"/>').text("创建时间")
-                    ).append(
-                        $('<th style="text-align:center;vertical-align:middle;padding:5px;"/>').text("更新时间")
-                    );
+                    )
+                        // .append(
+                        // $('<th style="text-align:center;vertical-align:middle;padding:5px;"/>').text("更新时间")
+                    // )
+                    ;
 
                     for (var i = 0; i < items.length; i++) {
                         form_table.append(
@@ -47,9 +49,10 @@ define([
                                 $('<td style="padding:5px;text-align:center;"/>').text(items[i].category)
                             ).append(
                                 $('<td style="padding:5px;text-align:center;"/>').text(items[i].createTime)
-                            ).append(
-                                $('<td style="padding:5px;text-align:center;"/>').text(items[i].updateTime)
                             )
+                                // .append(
+                                // $('<td style="padding:5px;text-align:center;"/>').text(items[i].updateTime)
+                            // )
                         );
                     }
 
