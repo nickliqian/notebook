@@ -129,7 +129,7 @@ define([
                             var content, content_1, content_2;
                             if (Value.x_field === "") {
                                 content_1 = '# Draw Points\n';
-                                content_2 = 'draw_points({0},y_field="{1}")\n'.format(Value.variable,Value.y_field);
+                                content_2 = 'sjs_load_data.draw_points({0},y_field="{1}")\n'.format(Value.variable,Value.y_field);
                                 content = content_1 + content_2
                             } else {
                                 content_1 = '# Draw Points\n';

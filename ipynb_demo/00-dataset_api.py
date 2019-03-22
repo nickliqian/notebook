@@ -57,7 +57,7 @@ class SJSLoadData(object):
     @staticmethod
     def get_source_detail(source_id):
         print("[INFO] Get Source Id:<{}> for data source connection info".format(source_id))
-        url = "{}/cubo/source/get/{}".format(os.getenv("cubo_api"), source_id)
+        url = "{}/cubo/source/get/{}".format(os.getenv("cubo_api") or "http://192.168.10.203:8092", source_id)
         response = requests.get(url=url, timeout=8)
         config_data = response.json()
         return config_data

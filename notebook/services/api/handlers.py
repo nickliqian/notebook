@@ -261,7 +261,7 @@ class DataSetList(APIHandler):
             }
             self.write(result)
         else:
-            url = "{}/cubo//dsList".format(os.getenv("cubo_api"))
+            url = "{}/cubo//dsList".format(os.getenv("cubo_api") or "http://192.168.10.203:8092")
 
             payload = "order=desc&offset=0&limit=50"
             headers = {
@@ -273,9 +273,9 @@ class DataSetList(APIHandler):
                 'Content-Length': "28",
                 'Content-Type': "application/x-www-form-urlencoded",
                 'Host': "192.168.10.204:8092",
-                'Origin': "http://192.168.10.204:8092",
+                'Origin': "http://192.168.10.203:8092",
                 'Pragma': "no-cache",
-                'Referer': "http://192.168.10.204:8092/cubo/ds",
+                'Referer': "http://192.168.10.203:8092/cubo/ds",
                 'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36",
                 'X-Requested-With': "XMLHttpRequest",
                 'Postman-Token': "7b235144-e7e6-4f7d-9fba-6afe88c0c16c"
