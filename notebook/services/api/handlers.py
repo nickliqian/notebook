@@ -18,7 +18,7 @@ import requests
 # cubo_host
 cubo_host = "http://locahost:9082"
 try:
-    with open("~/.jupyter/jupyter_notebook_config.py", "r") as f:
+    with open("{}/.jupyter/jupyter_notebook_config.py".format(os.environ['HOME']), "r") as f:
         content = f.readlines()
     for c in content:
         if c.startswith("c.NotebookApp.cubo_host"):
