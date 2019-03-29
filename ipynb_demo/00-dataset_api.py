@@ -29,12 +29,12 @@ class SJSLoadData(object):
             for c in content:
                 if c.startswith("c.NotebookApp.cubo_host"):
                     try:
-                        self.cubo_host = c.split("=")[1].strip()
+                        self.cubo_host = c.split("=")[1].strip().replace('"', '').replace("'", "")
                     except Exception:
                         raise Exception("请配置正确的cubo地址！")
                 elif c.startswith("c.NotebookApp.hdfs_client_host"):
                     try:
-                        self.hdfs_client_host = c.split("=")[1].strip()
+                        self.hdfs_client_host = c.split("=")[1].strip().replace('"', '').replace("'", "")
                     except Exception:
                         raise Exception("请配置正确的HDFS客户端地址！")
                 else:

@@ -23,7 +23,7 @@ try:
     for c in content:
         if c.startswith("c.NotebookApp.cubo_host"):
             try:
-                cubo_host = c.split("=")[1].strip()
+                cubo_host = c.split("=")[1].strip().replace('"', '').replace("'", "")
             except Exception:
                 raise Exception("请配置正确的cubo地址！")
         else:
