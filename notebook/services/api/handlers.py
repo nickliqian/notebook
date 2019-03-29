@@ -15,6 +15,19 @@ import os
 import requests
 
 
+# cubo_host
+cubo_host = "http://locahost:9082"
+with open("jupyter_notebook_config.py", "r") as f:
+    content = f.readlines()
+for c in content:
+    if c.startswith("c.NotebookApp.cubo_host"):
+        try:
+            cubo_host = c.split("=")[1].strip()
+        except Exception:
+            raise Exception("请配置正确的cubo地址！")
+    else:
+        pass
+
 
 class APISpecHandler(web.StaticFileHandler, IPythonHandler):
 
@@ -247,43 +260,18 @@ class DataSetList(APIHandler):
     @web.authenticated
     @gen.coroutine
     def get(self):
-        import requests
+        url = "{}/cubo//dsList".format(cubo_host)
 
-        if False:
-            result = {
-                "list": [
-                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
-                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
-                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
-                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}},
-                    {"sourceName": "测试源", "category": "mysql", "createTime": "2018-03-18", "updateTime": "2018-03-18", "connParams": {"url": "url"}}
-                ]
-            }
-            self.write(result)
-        else:
-            url = "{}/cubo//dsList".format(os.getenv("cubo_api") or "http://192.168.10.203:8092")
+        payload = "order=desc&offset=0&limit=50"
+        headers = {
+            'Accept': "application/json, text/javascript, */*; q=0.01",
+            'Content-Type': "application/x-www-form-urlencoded",
+        }
 
-            payload = "order=desc&offset=0&limit=50"
-            headers = {
-                'Accept': "application/json, text/javascript, */*; q=0.01",
-                'Accept-Encoding': "gzip, deflate",
-                'Accept-Language': "zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7",
-                'Cache-Control': "no-cache",
-                'Connection': "keep-alive",
-                'Content-Length': "28",
-                'Content-Type': "application/x-www-form-urlencoded",
-                'Host': "192.168.10.204:8092",
-                'Origin': "http://192.168.10.203:8092",
-                'Pragma': "no-cache",
-                'Referer': "http://192.168.10.203:8092/cubo/ds",
-                'User-Agent': "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36",
-                'X-Requested-With': "XMLHttpRequest",
-                'Postman-Token': "7b235144-e7e6-4f7d-9fba-6afe88c0c16c"
-            }
+        response = requests.request("POST", url, data=payload, headers=headers, timeout=30)
+        print(response.text)
 
-            response = requests.request("POST", url, data=payload, headers=headers, timeout=60)
-
-            self.write(response.json())
+        self.write(response.json())
 
 
 # CHANGE: Add new api...

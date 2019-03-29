@@ -20,7 +20,24 @@ warnings.filterwarnings("ignore")
 
 class SJSLoadData(object):
     def __init__(self):
-        pass
+        self.cubo_host = "http://locahost:9082"
+        self.hdfs_client_host = "http://locahost:50070"
+
+        with open("jupyter_notebook_config.py", "r") as f:
+            content = f.readlines()
+        for c in content:
+            if c.startswith("c.NotebookApp.cubo_host"):
+                try:
+                    self.cubo_host = c.split("=")[1].strip()
+                except Exception:
+                    raise Exception("请配置正确的cubo地址！")
+            elif c.startswith("c.NotebookApp.hdfs_client_host"):
+                try:
+                    self.hdfs_client_host = c.split("=")[1].strip()
+                except Exception:
+                    raise Exception("请配置正确的HDFS客户端地址！")
+            else:
+                pass
 
     @staticmethod
     def test(name):
@@ -54,16 +71,14 @@ class SJSLoadData(object):
             return
         return df
 
-    @staticmethod
-    def get_source_detail(source_id):
+    def get_source_detail(self, source_id):
         print("[INFO] Get Source Id:<{}> for data source connection info".format(source_id))
-        url = "{}/cubo/source/get/{}".format(os.getenv("cubo_api") or "http://192.168.10.203:8092", source_id)
+        url = "{}/cubo/source/get/{}".format(self.cubo_host, source_id)
         response = requests.get(url=url, timeout=8)
         config_data = response.json()
         return config_data
 
-    @staticmethod
-    def read_file(config_data):
+    def read_file(self, config_data):
         # 读取配置
         conn_params = config_data["connParams"]
         conn_url = conn_params["url"]
@@ -74,9 +89,9 @@ class SJSLoadData(object):
         file_type = str.lower(conn_url["type"])
 
         # 根据格式读取数据
-        if file_path.startswith("hdfs://"):
+        if file_path.startswith("hdfs"):
             # 客户端
-            client = hdfs.Client("http://192.168.10.203:50070")
+            client = hdfs.Client(self.hdfs_client_host)
             with client.read(file_path) as reader:
                 result = reader.read()  # bytes
         else:

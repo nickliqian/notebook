@@ -82,7 +82,7 @@ c.NotebookApp.port =8888 #可自行指定一个端口, 访问时使用该端口2
 ```
 
 # install
-`pip install requests pandas matplotlib pymysql mssql`  
+`pip install pandas matplotlib scipy numpy pymysql pymssql hdfs fastparquet`  
 `git pull; pip instal .`  
 
 读取partuet文件时会遇到依赖问题，需要安装python-snappy，依赖如下：
@@ -106,6 +106,7 @@ cd notebook_dataset
 pip install -r requirements.txt  
 git pull;  
 workon nb_1  
+jupyter notebook --generate-config  
 cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/;  
 cp ipynb_demo/jupyter_notebook_config.py ~/.jupyter/;  
 python setup.py build;  
