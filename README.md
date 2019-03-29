@@ -92,6 +92,7 @@ RPM-based: sudo yum install libsnappy-devel
 Brew:  brew install snappy
 # https://stackoverflow.com/questions/11416024/error-installing-python-snappy-snappy-c-h-no-such-file-or-directory
 ```
+tornado==5.0.2 应该使用低版本
 
 # run
 ```

@@ -23,21 +23,24 @@ class SJSLoadData(object):
         self.cubo_host = "http://locahost:9082"
         self.hdfs_client_host = "http://locahost:50070"
 
-        with open("jupyter_notebook_config.py", "r") as f:
-            content = f.readlines()
-        for c in content:
-            if c.startswith("c.NotebookApp.cubo_host"):
-                try:
-                    self.cubo_host = c.split("=")[1].strip()
-                except Exception:
-                    raise Exception("请配置正确的cubo地址！")
-            elif c.startswith("c.NotebookApp.hdfs_client_host"):
-                try:
-                    self.hdfs_client_host = c.split("=")[1].strip()
-                except Exception:
-                    raise Exception("请配置正确的HDFS客户端地址！")
-            else:
-                pass
+        try:
+            with open("~/.jupyter/jupyter_notebook_config.py", "r") as f:
+                content = f.readlines()
+            for c in content:
+                if c.startswith("c.NotebookApp.cubo_host"):
+                    try:
+                        self.cubo_host = c.split("=")[1].strip()
+                    except Exception:
+                        raise Exception("请配置正确的cubo地址！")
+                elif c.startswith("c.NotebookApp.hdfs_client_host"):
+                    try:
+                        self.hdfs_client_host = c.split("=")[1].strip()
+                    except Exception:
+                        raise Exception("请配置正确的HDFS客户端地址！")
+                else:
+                    pass
+        except FileNotFoundError:
+            raise Exception("请生成配置文件~/.jupyter/jupyter_notebook_config.py")
 
     @staticmethod
     def test(name):

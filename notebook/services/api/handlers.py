@@ -17,16 +17,19 @@ import requests
 
 # cubo_host
 cubo_host = "http://locahost:9082"
-with open("jupyter_notebook_config.py", "r") as f:
-    content = f.readlines()
-for c in content:
-    if c.startswith("c.NotebookApp.cubo_host"):
-        try:
-            cubo_host = c.split("=")[1].strip()
-        except Exception:
-            raise Exception("请配置正确的cubo地址！")
-    else:
-        pass
+try:
+    with open("~/.jupyter/jupyter_notebook_config.py", "r") as f:
+        content = f.readlines()
+    for c in content:
+        if c.startswith("c.NotebookApp.cubo_host"):
+            try:
+                cubo_host = c.split("=")[1].strip()
+            except Exception:
+                raise Exception("请配置正确的cubo地址！")
+        else:
+            pass
+except FileNotFoundError:
+    raise Exception("请生成配置文件~/.jupyter/jupyter_notebook_config.py")
 
 
 class APISpecHandler(web.StaticFileHandler, IPythonHandler):
