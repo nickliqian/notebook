@@ -17,7 +17,9 @@ sudo python setup.py install
 cd ../..
 virtualenv -p python3 venv
 . venv/bin/activate
-pip install -no-index -find-links="./" -r requirements.txt
+cd dep/pip_package/
+pip install --no-index --find-links="./" -r requirements.txt
+
 
 # 安装nodejs
 nb_dir="/opt/xinghe/app"

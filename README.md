@@ -116,4 +116,16 @@ pip install .;
 jupyter notebook;  
 
 
+# 以下包需要区分python3.5和3.6的check point
+kiwisolver==1.0.1
+llvmlite==0.28.0
+MarkupSafe==1.1.1
+matplotlib==3.0.3
+numba==0.43.1
+numpy==1.16.2
+pandas==0.24.2
+pymssql==2.1.4
+pyzmq==18.0.1
+autopep8==1.3.3
+
 // export cubo_api="http://192.168.10.203:8092"  
