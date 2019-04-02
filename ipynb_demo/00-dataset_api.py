@@ -20,27 +20,8 @@ warnings.filterwarnings("ignore")
 
 class SJSLoadData(object):
     def __init__(self):
-        self.cubo_host = "http://locahost:9082"
-        self.hdfs_client_host = "http://locahost:50070"
-
-        try:
-            with open("{}/.jupyter/jupyter_notebook_config.py".format(os.environ['HOME']), "r") as f:
-                content = f.readlines()
-            for c in content:
-                if c.startswith("c.NotebookApp.cubo_host"):
-                    try:
-                        self.cubo_host = c.split("=")[1].strip().replace('"', '').replace("'", "")
-                    except Exception:
-                        raise Exception("请配置正确的cubo地址！")
-                elif c.startswith("c.NotebookApp.hdfs_client_host"):
-                    try:
-                        self.hdfs_client_host = c.split("=")[1].strip().replace('"', '').replace("'", "")
-                    except Exception:
-                        raise Exception("请配置正确的HDFS客户端地址！")
-                else:
-                    pass
-        except FileNotFoundError:
-            raise Exception("请生成配置文件~/.jupyter/jupyter_notebook_config.py")
+        self.cubo_host = os.getenv("cubo_host", "http://locahost:9082")
+        self.cubo_hdfs_client_host = os.getenv("cubo_hdfs_client_host", "http://locahost:50070")
 
     @staticmethod
     def test(name):
@@ -95,6 +76,7 @@ class SJSLoadData(object):
         if file_path.startswith("hdfs"):
             # 客户端
             client = hdfs.Client(self.hdfs_client_host)
+            file_path = file_path.replace("hdfs://", "")
             with client.read(file_path) as reader:
                 result = reader.read()  # bytes
         else:
