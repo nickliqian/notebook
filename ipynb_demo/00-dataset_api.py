@@ -65,12 +65,10 @@ class SJSLoadData(object):
     def read_file(self, config_data):
         # 读取配置
         conn_params = config_data["connParams"]
-        conn_url = conn_params["url"]
-        conn_url = {"type": "Parquet", "path": "/tmp/zyf/hbaseData", "partitions": "1", "mode": "overwrite"}
 
         # 解析配置
-        file_path = conn_url["path"]
-        file_type = str.lower(conn_url["type"])
+        file_path = conn_params["path"]
+        file_type = str.lower(conn_params["type"])
 
         # 根据格式读取数据
         if file_path.startswith("hdfs"):
