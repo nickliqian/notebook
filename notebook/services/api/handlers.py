@@ -16,7 +16,7 @@ import requests
 
 
 # cubo_host
-cubo_host = os.getenv("cubo_host", "http://locahost:9082")
+cubo_host = os.getenv("cubo_host", "http://locahost:8092")
 
 
 class APISpecHandler(web.StaticFileHandler, IPythonHandler):

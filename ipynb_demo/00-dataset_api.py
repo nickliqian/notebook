@@ -20,7 +20,7 @@ warnings.filterwarnings("ignore")
 
 class SJSLoadData(object):
     def __init__(self):
-        self.cubo_host = os.getenv("cubo_host", "http://locahost:9082")
+        self.cubo_host = os.getenv("cubo_host", "http://locahost:8092")
         self.cubo_hdfs_client_host = os.getenv("cubo_hdfs_client_host", "http://locahost:50070")
 
     @staticmethod

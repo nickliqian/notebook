@@ -82,6 +82,9 @@ mkdir -p ~/.ipython/profile_default/startup/
 cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/;
 mkdir -p ~/.jupyter/
 cp ipynb_demo/jupyter_notebook_config.py ~/.jupyter/;
+export cubo_host="http://localhost:8092"
+export cubo_hdfs_client_host="http://localhost:50070"
+
 
 # 启动notebook
 jupyter notebook
