@@ -129,3 +129,7 @@ pyzmq==18.0.1
 autopep8==1.3.3
 
 // export cubo_api="http://192.168.10.203:8092"  
+
+需要环境变量
+cubo_host = os.getenv("cubo_host", "http://locahost:9082")
+cubo_hdfs_client_host = os.getenv("cubo_hdfs_client_host", "http://locahost:50070")

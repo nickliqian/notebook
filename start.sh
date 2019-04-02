@@ -89,7 +89,7 @@ jupyter notebook --allow-root
 nohup jupyter notebook > out.log 2>&1 &
 or
 nohup jupyter notebook --allow-root > out.log 2>&1 &
-
+killall -9 jupyter-notebook
 
 # set oracle jdk environment JAVA环境变量
 """
