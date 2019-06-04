@@ -27,7 +27,6 @@ matplotlib==3.0.3
 mistune==0.8.3
 nbconvert==5.3.1
 nbformat==4.4.0
-# -e git+git@github.com:nickliqian/notebook.git@fc0be6e0cae5ef58d0961e7fa1b5999e27e76406#egg=notebook
 numba==0.43.0
 numpy==1.16.2
 pandas==0.24.2

@@ -9,7 +9,7 @@
 > [启动ipython或python解释器自动导入组件（例如：numpy）](https://blog.csdn.net/xlinsist/article/details/51168892)  
 
 `.ipython\profile_default\startup` 在这个路径里面放置文件，加载内核的时候会主动执行。  
-`.jupyter\\jupyter_notebook_config.py` 此文件是`jupyter notebook`的配置文件
+`.jupyter\jupyter_notebook_config.py` 此文件是`jupyter notebook`的配置文件
 `jupyter notebook --generate-config`
 ```
 从 jupyter notebook 5.0 版本开始，提供了一个命令来设置密码：jupyter notebook password，生成的密码存储在 jupyter_notebook_config.json。
