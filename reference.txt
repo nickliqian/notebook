@@ -34,6 +34,7 @@ rpm -ivh --force --nodeps mysql-community-server-5.7.25-1.el7.x86_64.rpm
 rpm -ivh --force --nodeps mysql-community-client-5.7.25-1.el7.x86_64.rpm
 mysqld --initialize --user=mysql
 grep 'temporary password' /var/log/mysqld.log
+set password for root@localhost=password('mysql')
 systemctl start mysqld.service
 
 # 新建用户
@@ -48,6 +49,8 @@ flush privileges;
 # 安装python3和pip
 cd ..
 tar -zxvf rpm_package_python.tar
+cd rpm_package_python
+sudo rpm -ivh *.rpm
 ln -s /bin/python3.6 /bin/python3
 ln -s /bin/pip3.6 /bin/pip3
 
@@ -79,9 +82,9 @@ cd notebook_package/notebook_dataset
 pip install .
 npm run build
 mkdir -p ~/.ipython/profile_default/startup/
-cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/;
+cp ipynb_demo/00-dataset_api.py ~/.ipython/profile_default/startup/
 mkdir -p ~/.jupyter/
-cp ipynb_demo/jupyter_notebook_config.py ~/.jupyter/;
+cp ipynb_demo/jupyter_notebook_config.py ~/.jupyter/
 export cubo_host="http://localhost:8092"
 export cubo_hdfs_client_host="http://localhost:50070"
 

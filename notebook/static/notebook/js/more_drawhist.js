@@ -142,7 +142,7 @@ define([
                             var content, content_1, content_2;
 
                             content_1 = '# Draw Hist\n';
-                            content_2 = 'sjs_load_data.draw_hist({0},value_field="{1}",bins="{2}",rwidth="{3}")\n'.format(Value.variable, Value.y_field, Value.bins, Value.rwidth);
+                            content_2 = 'sjs_load_data.draw_hist({0},value_field="{1}",bins={2},rwidth={3})\n'.format(Value.variable, Value.y_field, Value.bins, Value.rwidth);
                             content = content_1 + content_2;
 
                             // 获取当前行的状态，是否有内容
